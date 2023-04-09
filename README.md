@@ -11,7 +11,7 @@ TO COMPILE and RUN:
     
 ![Alt text](sc0.jpg?raw=true "Demo")
 
-* Comment:
+
 The periodic table, also known as the periodic table of the elements, is a rows and columns arrangement of the chemical elements. It is widely used in chemistry, physics, and other sciences, and is generally seen as an icon of chemistry. (WIKIPEDIA)
 
 In my last project in C I wanted to compile everything I've learned with graphical text interfaces and create a retro-looking periodic table that looks nice :) 
@@ -33,12 +33,13 @@ LEVEL 1: (LOW LEVEL ABSTRACTIONS)
 - scbuf.c (1) : Creates an intermediate layer between the display and the terminal as a double screen buffer - listbox.c (2) : Creates a list with a selector with horizontal scroll
 _______________
 
-LEVEL 3: (HIGH LEVEL ABSTRACTIONS)
+LEVEL 2: (HIGH LEVEL ABSTRACTIONS)
 - ui.c : Different tools like textbox and window for user interface
 - global.h and about.h : text messages and global variables
 _______________
 
 main.c: Main program
+elements.dat: Database of elements, most of the info generated with chatGPT.
 
 (1) http://oldstuff286.blogspot.com/2017/09/a-very-simple-screen-double-buffer.html
 
