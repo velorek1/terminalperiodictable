@@ -660,7 +660,7 @@ int displayAbout(){
 		  if (colAnimation == F_WHITE) colAnimation =F_BLACK;
 		  else colAnimation = F_WHITE;
 	  }
-         _animation();
+        if(_animation() == -1) break;
       }
       //Process keys
     if(keypressed == 1) {
