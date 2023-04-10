@@ -289,7 +289,8 @@ int main() {
          // write_num(screen1,1,5,currentPointer,B_GREEN,F_WHITE,1);
          // write_num(screen1,1,6,oldPointer,B_RED,F_WHITE,1);
          // write_num(screen1,1,7,periodictable[oldPointer].atomicNumber,B_CYAN,F_WHITE,1);
-          if (ch == K_ENTER) {
+        if (displaytable){
+	  if (ch == K_ENTER) {
 	  //Tile info
 	     resetScrollData();
              memset(elementText, 0, sizeof(elementText));
@@ -306,14 +307,17 @@ int main() {
 
           if (ch == 'x') status = ENDSIGNAL;
           if (ch == 'k') displayColorKey();
+	}
           if (ch == 's') {
 		  //Hide-show table even if screen size is not big enough
 		  if (blocked == FALSE) {
 			     blocked = TRUE;
+			     displaytable = FALSE;
 			     draw_screen();
 			     dump_screen(screen1);
 		           }  
 			  else{ 
+				  displaytable = TRUE;
 				  blocked= FALSE;
 				  draw_screen();
 				  draw_table(0);
@@ -818,7 +822,7 @@ strcpy(lineStr, "");
   scrollData.selectorLimit=39;    //No. of chars per item displayed
   if (listBox1 != NULL) ch = listBox(listBox1, (new_columns/2)-18, (new_rows/2)-5, &scrollData, B_WHITE, F_BLACK, B_WHITE,F_BLUE, 10, LOCKED);
   copy_screen(aux,screen3);
-  if (screen2 != NULL) deleteList(&screen3); 
+  if (screen3 != NULL) deleteList(&screen3); 
   if (listBox1 != NULL) removeList(&listBox1);
   dump_screen(aux);
   return ch;
