@@ -715,7 +715,7 @@ int displayList(){
    create_screen(&screen2);
    copy_screen(screen2,screen1);
    draw_window(screen1, (new_columns/2)-14,(new_rows/2)-12,(new_columns/2)+14,(new_rows)/2+12,B_WHITE,F_BLACK,B_CYAN,1,0,1,0);
-   write_str(screen1, (new_columns/2)-2,(new_rows/2)+11,"[OK]",B_CYAN,F_WHITE,1);
+   write_str(screen1, (new_columns/2)-9,(new_rows/2)+11,"Press [ESC] to close",B_CYAN,F_WHITE,1);
   // dump_screen(screen1); 
   // addItems(&listBox1, elementNames, NUMELEMENTS);
   // if (listBox1 != NULL) ch = listBox(listBox1, (new_columns/2)-11, (new_rows/2)-11, &scrollData, B_WHITE, F_BLACK, B_BLUE,F_WHITE, 22, LOCKED);
@@ -923,8 +923,8 @@ int getElementfromFile(char *text, int elementNumber)
     char filename[] = "elements.dat";
     char buffer[MAXTEXT];
     char dummy[4];
-    char start_str[5];
-    char end_str[5];
+    char start_str[6];
+    char end_str[6];
     char line[MAX_LINE_LENGTH];
     int flag = 0;
     FILE *fp;
