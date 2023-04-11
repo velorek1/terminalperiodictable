@@ -14,7 +14,7 @@ TO COMPILE and RUN:
 
 The periodic table, also known as the periodic table of the elements, is a rows and columns arrangement of the chemical elements. It is widely used in chemistry, physics, and other sciences, and is generally seen as an icon of chemistry. (WIKIPEDIA)
 
-In my last project in C I wanted to compile everything I've learned with graphical text interfaces and create a retro-looking periodic table that looks nice :) 
+In my last project in C I wanted to compile everything I've learned with text user interfaces and create a retro-looking periodic table that looks nice :) 
 
 Though not my best or cleanest code, it is intended to be used as a "demo" for the Lynx TUI. Is is also made with a lot of love.
 
@@ -35,7 +35,7 @@ _______________
 
 LEVEL 2: (HIGH LEVEL ABSTRACTIONS)
 - ui.c : Different tools like textbox and window for user interface
-- global.h and about.h : text messages and global variables
+- global.c: text messages and global variables
 _______________
 
 main.c: Main program
