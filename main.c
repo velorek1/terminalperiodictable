@@ -836,7 +836,7 @@ char ch=0;
    create_screen(&screen2);
    copy_screen(screen2,screen1);
    window(screen1,(new_columns/2)-13,(new_rows/2)-1,(new_columns/2)+14,(new_rows)/2+1, B_BLUE,F_WHITE, B_BLUE,1,0,1);
-   textbox(screen1, (new_columns/2)-12,(new_rows/2),15, "Element: ", texto, B_BLUE,F_WHITE, F_WHITE,FALSE,LOCKED);
+   ch=textbox(screen1, (new_columns/2)-12,(new_rows/2),15, "Element: ", texto, B_BLUE,F_WHITE, F_WHITE,FALSE,LOCKED);
    dump_screen(screen1); 
    memset(lowercase, 0, sizeof(lowercase));
    strcpy(lowercase,"\0");

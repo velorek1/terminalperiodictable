@@ -10,11 +10,10 @@
 #include "scbuf.h"
 #include "ui.h"
 #include "keyb.h"
-//#include "global.h"
+#include "global.h"
 /*----------------------------*/
 /* User Interface - Text Box. */
 /*----------------------------*/
-
 int textbox(SCREENCELL *newScreen,int wherex, int wherey, int displayLength,
         char *label, char text[MAX_TEXT], int backcolor,
         int labelcolor, int textcolor, BOOL raw, BOOL locked) {
@@ -104,7 +103,7 @@ int textbox(SCREENCELL *newScreen,int wherex, int wherey, int displayLength,
       }
     }
     if (ch==K_CTRL_C){
-	    return -1;
+	    return ENDSIGNAL;
     }
     if (ch==K_BACKSPACE){
       if (positionx>0 && charCount>0){
