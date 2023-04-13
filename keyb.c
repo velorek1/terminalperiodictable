@@ -37,7 +37,7 @@ char ch;
 int i;
    chartrail[0] = K_ESCAPE;
    for(i = 1; i < 5; i++) {
-     if(kbhit() == 1) {
+     if(kbhit(1) == 1) {
         ch=readch();
         chartrail[i] = ch;
      } else {

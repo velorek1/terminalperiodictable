@@ -90,7 +90,8 @@ typedef int BOOL;
 
 void    pushTerm();
 int     resetTerm();
-int     kbhit();
+int kbhit(int timeout_ms);
+	
 int     readch();
 char     getch();
 void    resetch();

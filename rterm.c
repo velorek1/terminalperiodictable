@@ -18,8 +18,10 @@ LAST MODIFIED : 18/09/2021 Simplified and commented
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <locale.h>
 #include <sys/ioctl.h>
+#include <poll.h>
 #include "rterm.h"
 #include "keyb.h"
 /*====================================================================*/
@@ -27,7 +29,7 @@ LAST MODIFIED : 18/09/2021 Simplified and commented
 /*====================================================================*/
 
 struct winsize max;
-static struct termios term,term2, failsafe;
+static struct termios term, failsafe;
 static int peek_character = -1;
 
 /*====================================================================*/
@@ -57,6 +59,21 @@ int resetTerm() {
 /* Detect whether a key has been pressed.*/
 /*---------------------------------------*/
 
+int kbhit(int timeout_ms)
+{
+    struct pollfd fds = {STDIN_FILENO, POLLIN, 0};
+    fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);
+    int ret = poll(&fds, 1, timeout_ms);
+    fcntl(STDIN_FILENO, F_SETFL, 0);
+    if (ret > 0) {
+        return 1;
+    } else if (ret == 0) {
+        return 0; // timeout occurred
+    } else {
+        return -1; // error occurred
+    }
+}
+/*
 int kbhit()
 {
     if(peek_character != -1)
@@ -73,7 +90,7 @@ int kbhit()
 
     return byteswaiting > 0;
 }
-
+*/
 /*----------------------*/
 /*Read char with control*/
 /*----------------------*/

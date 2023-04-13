@@ -346,25 +346,24 @@ char selectorMenu(LISTCHOICE * aux, SCROLLDATA * scrollData) {
              if (_animation() == -1) {scrollData->itemIndex = -1;double_escape = 1; break;}
         }
   
-    keypressed = kbhit();
+    keypressed = kbhit(10);
     if (keypressed == 1)
     ch = readch();
     //if enter key pressed - break loop
     if(ch == K_ENTER)
       control = CONTINUE_SCROLL;	//Break the loop
 
-    if (ch==K_BACKSPACE) {break;} 
-    if (ch==K_CTRL_C) {ch=ENDSIGNAL; break;}
+     if (ch == 'x' || ch == K_BACKSPACE || ch == K_CTRL_C){
+         double_escape=1;
+	 scrollData->itemIndex = -1;
+	  break;
+     }
+ 
     //Check arrow keys
     if(ch == K_ESCAPE)		// escape key
     {
       read_keytrail(chartrail);
-      if (strcmp(chartrail, "\e") == 0){
-	      double_escape=1;
-	      scrollData->itemIndex = -1;
-	      break;
-      }
-      if (strcmp(chartrail, K_ALT_X) == 0){
+     if (strcmp(chartrail, K_ALT_X) == 0){
 	      break;
       }
       if (strcmp(chartrail, K_UP_TRAIL) == 0){

@@ -268,9 +268,9 @@ int main() {
       periodictable[i].is_selected = FALSE;
     }
     dump_screen(screen1);
-    resetch();
+    //resetch();
      do{    
-         keypressed = kbhit();
+         keypressed = kbhit(100);
           
 
          if (keypressed == TRUE) 
@@ -305,7 +305,7 @@ int main() {
           if (ch == K_CTRL_S) displaySearch();
           if (ch == K_CTRL_H) displayHelp();
 
-          if (ch == 'x') status = ENDSIGNAL;
+          //if (ch == 'x') status = ENDSIGNAL;
           if (ch == 'k') displayColorKey();
 	}
           if (ch == 's') {
@@ -650,11 +650,11 @@ int displayAbout(){
       write_str(screen1, (new_columns/2)-25,(new_rows/2)+2,aboutMSG[7],B_YELLOW,F_BLACK,0);
    write_str(screen1, (new_columns/2)-1,(new_rows/2)+4,"[OK]",B_WHITE,F_BLACK,1);
    dump_screen(screen1); 
-   if(kbhit() == 1) ch = readch();
+   if(kbhit(100) == 1) ch = readch();
    ch = 0;
   i=0;
   do {
-      keypressed = kbhit();
+      keypressed = kbhit(10);
       if (timerC(&timer3) == TRUE){
 	   //About animation            
           write_str(screen1, (new_columns/2)-27,(new_rows/2)-5+i,aboutMSG[i],B_YELLOW,colAnimation,1);
@@ -719,7 +719,7 @@ int displayList(){
    create_screen(&screen2);
    copy_screen(screen2,screen1);
    draw_window(screen1, (new_columns/2)-14,(new_rows/2)-12,(new_columns/2)+14,(new_rows)/2+12,B_WHITE,F_BLACK,B_CYAN,1,0,1,0);
-   write_str(screen1, (new_columns/2)-9,(new_rows/2)+11,"Press [ESC] to close",B_CYAN,F_WHITE,1);
+   write_str(screen1, (new_columns/2)-9,(new_rows/2)+11,"Press [x] to close",B_CYAN,F_WHITE,1);
   // dump_screen(screen1); 
   // addItems(&listBox1, elementNames, NUMELEMENTS);
   // if (listBox1 != NULL) ch = listBox(listBox1, (new_columns/2)-11, (new_rows/2)-11, &scrollData, B_WHITE, F_BLACK, B_BLUE,F_WHITE, 22, LOCKED);
@@ -751,7 +751,7 @@ int displayInfo(){
    create_screen(&screen2);
    copy_screen(screen2,screen1);
    window(screen1,(new_columns/2)-11,(new_rows/2)-6,(new_columns/2)+12,(new_rows)/2+6, B_WHITE,F_BLACK, B_BLUE,1,0,1);
-   write_str(screen1, (new_columns/2)-9,(new_rows/2)+5,"Press [ESC] to close",B_CYAN,F_WHITE,1);
+   write_str(screen1, (new_columns/2)-9,(new_rows/2)+5,"Press [x] to close",B_CYAN,F_WHITE,1);
    dump_screen(screen1); 
    do{
      resetScrollData();
@@ -1053,15 +1053,16 @@ int special_keys(char ch) {
     } else if(strcmp(chartrail, K_ALT_I) == 0) {
       displayInfo();
     } else if(strcmp(chartrail, ESC2X) == 0) {
-	return ENDSIGNAL;
+	//return ENDSIGNAL;
     } else if(strcmp(chartrail, "\e") == 0) {
     //clear Table or Exit accordingly	
-	if (currentPointer !=0){    
-	  resetTable();
-	  //draw_table(0);
-	  dump_screen(screen1);
-	} else
-	return ENDSIGNAL;
+	//if (currentPointer !=0){    
+	//  resetTable();
+	//  draw_table(0);
+	//  dump_screen(screen1);
+	//} else
+	//return ENDSIGNAL;
+	//resetch();
     } else if(strcmp(chartrail, K_ALT_X) == 0) {
       return ENDSIGNAL;
     } else if(strcmp(chartrail, K_ALT_A) == 0) {

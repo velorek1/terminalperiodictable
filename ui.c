@@ -43,12 +43,12 @@ int textbox(SCREENCELL *newScreen,int wherex, int wherey, int displayLength,
        textcolor,raw);
   if (raw != TRUE) dump_screen(aux);
   //Reset keyboard
-  if(kbhit() == 1) ch = readch();
+  if(kbhit(100) == 1) ch = readch();
   ch = 0;
 
   do {
 	 if (locked == 0) break;
-      keypressed = kbhit();
+      keypressed = kbhit(10);
     //Cursor Animation
    if (keypressed == 0){
     cursorCount++;
@@ -114,7 +114,7 @@ int textbox(SCREENCELL *newScreen,int wherex, int wherey, int displayLength,
        if (positionx < limitCursor-2) write_ch(aux,positionx + 2, wherey, '.', backcolor, textcolor,raw);
        //update_screen(aux);
        if (raw != TRUE) dump_screen(aux);
-       resetch();
+       //resetch();
       }
     }
     if(ch == K_ENTER || ch == K_TAB || ch == K_ESCAPE)
@@ -131,7 +131,7 @@ int textbox(SCREENCELL *newScreen,int wherex, int wherey, int displayLength,
   write_ch(aux,positionx + displayLength + 1, wherey, ']', backcolor,
        textcolor,raw);
  
-  resetch();
+  //resetch();
   return charCount;
 }
 
