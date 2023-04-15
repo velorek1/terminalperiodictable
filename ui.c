@@ -2,13 +2,14 @@
  * for a Text User Interface
  * TextBox
  * Window
- * Last modified: 09/10/2022
+ * Last modified: 15/04/2023
  * @author:velorek
  */
 #include <stdio.h>
 #include "rterm.h"
 #include "scbuf.h"
 #include "ui.h"
+#include "tm.h"
 #include "keyb.h"
 #include "global.h"
 /*----------------------------*/
@@ -20,7 +21,6 @@ int textbox(SCREENCELL *newScreen,int wherex, int wherey, int displayLength,
   int     charCount = 0;
   int     exitFlag = 0;
   int     cursorON = 1;
-  long    cursorCount = 0;
   int     i;
   int     limitCursor = 0;
   int     positionx = 0;
@@ -30,8 +30,10 @@ int textbox(SCREENCELL *newScreen,int wherex, int wherey, int displayLength,
  // char    accentchar[2];
   char    displayChar;
   char    ch;
+  NTIMER  cursorTime;
   SCREENCELL *aux = newScreen;
  
+  init_timer(&cursorTime,150);
   positionx = wherex + strlen(label);
   limitCursor = wherex+strlen(label)+displayLength+1;
   write_str(aux,wherex, wherey, label, backcolor, labelcolor,raw);
@@ -48,12 +50,11 @@ int textbox(SCREENCELL *newScreen,int wherex, int wherey, int displayLength,
 
   do {
 	 if (locked == 0) break;
-      keypressed = kbhit(10);
+      keypressed = kbhit(100);
     //Cursor Animation
    if (keypressed == 0){
-    cursorCount++;
-    if(cursorCount == 10000) {
-      cursorCount = 0;
+    
+    if (timerC(&cursorTime) == TRUE){
       switch (cursorON) {
     case 1:
       posCursor = positionx + 1;
@@ -77,6 +78,7 @@ int textbox(SCREENCELL *newScreen,int wherex, int wherey, int displayLength,
       break;
       }
      }
+      _animation();
     }
     //Process keys
     if(keypressed == 1) {
@@ -107,6 +109,7 @@ int textbox(SCREENCELL *newScreen,int wherex, int wherey, int displayLength,
     }
     if (ch==K_BACKSPACE){
       if (positionx>0 && charCount>0){
+       ch=0;
        positionx--;
        charCount--;
        text[charCount] = '\0';
