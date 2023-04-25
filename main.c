@@ -283,13 +283,13 @@ int main() {
 
           /* vi movement keys */
           if (ch == 'l')
-              step_right();
+	  { step_right(); ch=0;}
           else if (ch == 'h')
-              step_left();
+	  { step_left(); ch=0; }
           else if (ch == 'j')
-              step_down();
+	  {   step_down(); ch=0;}
           else if (ch == 'k')
-              step_up();
+	  {  step_up(); ch=0;}
                 
 	 if (timerC(&timer1) == TRUE){
 	      //Screen update
