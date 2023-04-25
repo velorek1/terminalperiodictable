@@ -3,7 +3,7 @@
 PROGRAM Cli Periodic Table - A showcase of Lynx Terminal TUI library.
 @author : Velorek
 @version : 1.0
-Last modified : 08/04/2023 
+Last modified : 25/04/2023 
 ======================================================================*/
 
 /*====================================================================*/
@@ -222,6 +222,10 @@ void      resetScrollData();
 void      draw_screen();
 void      draw_table(int raw);
 int       special_keys(char ch);
+void      step_right();
+void      step_left();
+void      step_down();
+void      step_up();
 void      getColorScheme (int index, int *bcol, int *fcol, BOOL simple);
 void      option_menu();
 int       getElementfromFile(char *text, int elementNumber);
@@ -276,6 +280,16 @@ int main() {
          if (keypressed == TRUE) 
           ch=readch();
            if (special_keys(ch) == ENDSIGNAL) status = ENDSIGNAL;	
+
+          /* vi movement keys */
+          if (ch == 'l')
+              step_right();
+          else if (ch == 'h')
+              step_left();
+          else if (ch == 'j')
+              step_down();
+          else if (ch == 'k')
+              step_up();
                 
 	 if (timerC(&timer1) == TRUE){
 	      //Screen update
@@ -306,7 +320,7 @@ int main() {
           if (ch == K_CTRL_H) displayHelp();
 
           //if (ch == 'x') status = ENDSIGNAL;
-          if (ch == 'k') displayColorKey();
+          if (ch == 'c') displayColorKey();
 	}
           if (ch == 's') {
 		  //Hide-show table even if screen size is not big enough
@@ -563,7 +577,7 @@ if (screen1 != NULL) deleteList(&screen1);
      write_str(screen1,centerX,1,titlemsg, B_BLACK, F_WHITE,FALSE);             
      write_str(screen1,1,new_rows,STATUSMSG1, B_WHITE, F_BLACK,FALSE);             
      write_str(screen1,1,2,"OPTIONS | ", B_WHITE, F_BLACK,FALSE);             
-     write_str(screen1,0,new_rows-1,"^v<> NAVIGATE TABLE | ENTER: INFO DIALOG | K: COLOR KEY", B_BLUE, F_WHITE,FALSE);             
+     write_str(screen1,0,new_rows-1,"^v<> NAVIGATE TABLE | ENTER: INFO DIALOG | C: COLOR KEY", B_BLUE, F_WHITE,FALSE);             
 
      dump_screen(screen1);
 
@@ -1023,27 +1037,13 @@ int special_keys(char ch) {
       // ARROW KEYS
     } else if(strcmp(chartrail, K_LEFT_TRAIL) == 0 ) {
       //Left-arrow key
-       if (oldPointer != 0) currentPointer = oldPointer-9;
-       selectItem(-2);
-       draw_table(2);
-       currentDirection = -2;
-       
+       step_left();
    } else if(strcmp(chartrail, K_RIGHT_TRAIL) == 0) {
-      if (oldPointer !=0) currentPointer = oldPointer+9;
-       selectItem(2);
-       draw_table(2);
-       currentDirection = 2;
+       step_right();
     } else if(strcmp(chartrail, K_UP_TRAIL) == 0) {
-      if (oldPointer != 0) currentPointer = oldPointer-1;
-      else currentPointer = 0; 
-       selectItem(-1);
-       draw_table(2);
-       currentDirection = -1;
+       step_up();
     } else if(strcmp(chartrail, K_DOWN_TRAIL) == 0)  {
-      if (oldPointer !=0) currentPointer = oldPointer+1;
-      selectItem(1);
-       draw_table(2);
-       currentDirection = 1;
+       step_down();
      } else if(strcmp(chartrail, K_ALT_S) == 0)   {
        displaySearch();
      } else if(strcmp(chartrail, K_ALT_L) == 0) {
@@ -1071,4 +1071,28 @@ int special_keys(char ch) {
     }
  return 0;
 }
-
+void step_right() {
+    if (oldPointer !=0) currentPointer = oldPointer+9;
+    selectItem(2);
+    draw_table(2);
+    currentDirection = 2;
+}
+void step_left() {
+    if (oldPointer != 0) currentPointer = oldPointer-9;
+    selectItem(-2);
+    draw_table(2);
+    currentDirection = -2;
+}
+void step_down() {
+    if (oldPointer !=0) currentPointer = oldPointer+1;
+    selectItem(1);
+    draw_table(2);
+    currentDirection = 1;
+}
+void step_up() {
+    if (oldPointer != 0) currentPointer = oldPointer-1;
+    else currentPointer = 0; 
+    selectItem(-1);
+    draw_table(2);
+    currentDirection = -1;
+}
