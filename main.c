@@ -17,7 +17,6 @@ Last modified : 25/04/2023
 #include "rterm.h"
 #include "scbuf.h"
 #include "keyb.h"
-#include "about.h"
 #include "tm.h"
 #include "ui.h"
 #include "listbox.h"
