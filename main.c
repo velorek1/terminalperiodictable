@@ -3,7 +3,7 @@
 PROGRAM Cli Periodic Table - A showcase of Lynx Terminal TUI library.
 @author : Velorek
 @version : 1.0
-Last modified : 25/04/2023 
+Last modified : 24/07/2023 - ESC KEY ADDED 
 ======================================================================*/
 
 /*====================================================================*/
@@ -220,7 +220,7 @@ void      resetScrollData();
 //void    credits();
 void      draw_screen();
 void      draw_table(int raw);
-int       special_keys(char ch);
+int       special_keys();
 void      step_right();
 void      step_left();
 void      step_down();
@@ -273,12 +273,12 @@ int main() {
     dump_screen(screen1);
     //resetch();
      do{    
-         keypressed = kbhit(100);
+         keypressed = kbhit(1);
           
 
          if (keypressed == TRUE) 
           ch=readch();
-           if (special_keys(ch) == ENDSIGNAL) status = ENDSIGNAL;	
+           if (ch == K_ESCAPE) {status = special_keys(); ch=0;}	
 
           /* vi movement keys */
           if (ch == 'l')
@@ -1006,7 +1006,7 @@ int getElementfromFile(char *text, int elementNumber)
     fclose(fp);
     return ch;
 }
-int special_keys(char ch) {
+int special_keys() {
 /* MANAGE SPECIAL KEYS */
 /* 
    New implementation: Trail of chars found in keyb.c
@@ -1019,11 +1019,10 @@ int special_keys(char ch) {
 */
 
   char    chartrail[5];
-  if(ch == K_ESCAPE) {
     read_keytrail(chartrail);	//Read trail after ESC key
 
     //Check key trails for special keys.
-
+     if (chartrail[0] == K_ESCAPE && chartrail[1]==0) return ENDSIGNAL;
 
     //FUNCTION KEYS : F1 - F4
     if(strcmp(chartrail, K_F2_TRAIL) == 0 ||
@@ -1067,7 +1066,6 @@ int special_keys(char ch) {
     } else if(strcmp(chartrail, K_ALT_A) == 0) {
        displayAbout();
       }
-    }
  return 0;
 }
 void step_right() {

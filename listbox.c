@@ -2,7 +2,7 @@
 /* +ListBox with double linked list and selection menu in C with
  * horizontal scroll.
    +Scroll function added. 
-   Last modified : 06/11/2022
+   Last modified : 24/07/2023 - ESC KEY ADDED
    Coded by Velorek. Raw output
    Target OS: Linux.                                                  */
 /*====================================================================*/
@@ -346,9 +346,10 @@ char selectorMenu(LISTCHOICE * aux, SCROLLDATA * scrollData) {
              if (_animation() == -1) {scrollData->itemIndex = -1;double_escape = 1; break;}
         }
   
-    keypressed = kbhit(10);
+    keypressed = kbhit(1);
     if (keypressed == 1)
     ch = readch();
+    else ch=0;
     //if enter key pressed - break loop
     if(ch == K_ENTER)
       control = CONTINUE_SCROLL;	//Break the loop
@@ -362,8 +363,11 @@ char selectorMenu(LISTCHOICE * aux, SCROLLDATA * scrollData) {
     //Check arrow keys
     if(ch == K_ESCAPE)		// escape key
     {
+      strcpy(chartrail, "\0");
       read_keytrail(chartrail);
-     if (strcmp(chartrail, K_ALT_X) == 0){
+      
+     if (chartrail[0] == K_ESCAPE && chartrail[1]==0) {double_escape = 1; scrollData->itemIndex = -1; break;}
+      if (strcmp(chartrail, K_ALT_X) == 0){
 	      break;
       }
       if (strcmp(chartrail, K_UP_TRAIL) == 0){
@@ -405,6 +409,7 @@ char selectorMenu(LISTCHOICE * aux, SCROLLDATA * scrollData) {
 	  //Return value  
 	  ch = control;
 	}
+
       }
     }
 
