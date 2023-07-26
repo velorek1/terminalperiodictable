@@ -79,7 +79,6 @@ Last modified: 15/09/2021 + Linux Term
 #define K_RIGHT_TRAIL "\e[C\0\0"
 #define K_LEFT_TRAIL "\e[D\0\0"
 
-
 //#define K_UP_ARROW 'A'      // K_ESCAPE + 'A' -> UP_ARROW
 //#define K_DOWN_ARROW 'B'    // K_ESCAPE + 'B' -> DOWN_ARROW
 typedef int BOOL;
@@ -88,21 +87,21 @@ typedef int BOOL;
 /* FUNCTION PROTOTYPES                                                */
 /*====================================================================*/
 
-void    pushTerm();
-int     resetTerm();
+void pushTerm();
+int resetTerm();
 int kbhit(int timeout_ms);
-	
-int     readch();
-char     getch();
-void    resetch();
+
+int readch();
+char getch();
+void resetch();
 //char    getch(void);
-void    gotoxy(int x, int y);
-void    outputcolor(int foreground, int background);
-void    screencol(int x);
-void    resetAnsi(int x);
-int     get_terminal_dimensions(int *rows, int *columns);
-void    showcursor();
-void    hidecursor();
-void    init_term();
-void    close_term();
+void gotoxy(int x, int y);
+void outputcolor(int foreground, int background);
+void screencol(int x);
+void resetAnsi(int x);
+int get_terminal_dimensions(int *rows, int *columns);
+void showcursor();
+void hidecursor();
+void init_term();
+void close_term();
 #endif
