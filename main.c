@@ -1272,10 +1272,18 @@ int special_keys()
 	char chartrail[5];
 	read_keytrail(chartrail);	//Read trail after ESC key
 
-	//Check key trails for special keys.
+	//ONLY ESC KEY PRESSED
 	if (chartrail[0] == K_ESCAPE && chartrail[1] == 0)
+	{
+		//clear Table or Exit accordingly   
+		if (currentPointer !=0){    
+		  resetTable();
+		  update_screen(screen1);
+		} else
 		return ENDSIGNAL;
+        }
 
+	//Check key trails for special keys.
 	//FUNCTION KEYS : F1 - F4
 	if (strcmp(chartrail, K_F2_TRAIL) == 0 ||
 	    strcmp(chartrail, K_F2_TRAIL2) == 0) {
@@ -1302,17 +1310,6 @@ int special_keys()
 		displayHelp();
 	} else if (strcmp(chartrail, K_ALT_I) == 0) {
 		displayInfo();
-	} else if (strcmp(chartrail, ESC2X) == 0) {
-		//return ENDSIGNAL;
-	} else if (strcmp(chartrail, "\e") == 0) {
-		//clear Table or Exit accordingly   
-		//if (currentPointer !=0){    
-		//  resetTable();
-		//  draw_table(0);
-		//  dump_screen(screen1);
-		//} else
-		//return ENDSIGNAL;
-		//resetch();
 	} else if (strcmp(chartrail, K_ALT_X) == 0) {
 		return ENDSIGNAL;
 	} else if (strcmp(chartrail, K_ALT_A) == 0) {
