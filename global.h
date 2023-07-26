@@ -17,11 +17,11 @@
 #define MAXTEXT 8192
 #define MAXELEMENT 100
 #define NUMELEMENTS 118
-#define WINERRMSGTL "[+] DISPLAY ERROR\0" 
-#define WINERRMSGLN1 "WINDOW SIZE IS TOO SMALL!\0" 
-#define WINERRMSGLN2 "RESIZE WINDOW MANUALLY.\0" 
-#define WINERRMSGLN3 "PRESS [S] TO OVERRIDE.\0" 
-#define STATUSMSG1 "F1:HELP | F2:MENU | ALT+L: LIST | ALT+X OR CTRL-C:EXIT \0" 
+#define WINERRMSGTL "[+] DISPLAY ERROR\0"
+#define WINERRMSGLN1 "WINDOW SIZE IS TOO SMALL!\0"
+#define WINERRMSGLN2 "RESIZE WINDOW MANUALLY.\0"
+#define WINERRMSGLN3 "PRESS [S] TO OVERRIDE.\0"
+#define STATUSMSG1 "F1:HELP | F2:MENU | ALT+L: LIST | ALT+X OR CTRL-C:EXIT \0"
 #define OPTION1 "Help........F1\0"
 #define OPTION2 "List.....ALT+L\0"
 #define OPTION3 "Search...ALT+S\0"
@@ -50,10 +50,10 @@
 #define HELP19 "personal blog : oldstuff286.blogspot.com           \0"
 #define HELP20 "Peace!  - by v3l0r3k                               \0"
 
-#define ABOUT0 "__________        ___________     ___.   .__          "          
-#define ABOUT1 "\\______   \\       \\__    ___/____ \\_ |__ |  |   ____  "  
-#define ABOUT2 " |     ___/  ______ |    |  \\__  \\ | __ \\|  | _/ __ \\ " 
-#define ABOUT3 " |    |     /_____/ |    |   / __ \\| \\_\\ \\  |_\\  ___/" 
+#define ABOUT0 "__________        ___________     ___.   .__          "
+#define ABOUT1 "\\______   \\       \\__    ___/____ \\_ |__ |  |   ____  "
+#define ABOUT2 " |     ___/  ______ |    |  \\__  \\ | __ \\|  | _/ __ \\ "
+#define ABOUT3 " |    |     /_____/ |    |   / __ \\| \\_\\ \\  |_\\  ___/"
 #define ABOUT4 " |____|             |____|  (____  /___  /____/\\___  >"
 #define ABOUT5 "                                 \\/    \\/          \\/"
 #define ABOUT6 "            Coded by v3l0r3k - v0.1 2023"
@@ -92,8 +92,8 @@ extern BOOL blocked;
 
 //extern char aboutMSG[7][MAXLINE];
 
-extern int     new_rows, new_columns, old_rows, old_columns;	// Terminal dimensions
+extern int new_rows, new_columns, old_rows, old_columns;	// Terminal dimensions
 
-int _animation(); 
+int _animation();
 
 #endif

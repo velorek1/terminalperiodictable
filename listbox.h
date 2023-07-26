@@ -37,31 +37,31 @@ Last modified: 26/12/2022
 /*====================================================================*/
 
 typedef struct _listchoice {
-  unsigned index;		// Item number
-  char   *item;			// Item string
-  struct _listchoice *next;	// Pointer to next item
-  struct _listchoice *back;	// Pointer to previous item
+	unsigned index;		// Item number
+	char *item;		// Item string
+	struct _listchoice *next;	// Pointer to next item
+	struct _listchoice *back;	// Pointer to previous item
 } LISTCHOICE;
 
 typedef struct _scrolldata {
-  unsigned scrollActive;	//To know whether scroll is active or not.
-  unsigned scrollLimit;		//Last index for scroll.
-  unsigned listLength;		//Total no. of items in the list
-  unsigned currentListIndex;	//Pointer to new sublist of items when scrolling.
-  unsigned displayLimit;	//No. of elements to be displayed.
-  unsigned selectorLimit;       //how many items of string item can be displayed
-  unsigned scrollDirection;	//To keep track of scrolling Direction.
-  unsigned wherex;
-  unsigned wherey;
-  unsigned selector;		//Y++
-  unsigned backColor0;		//0 unselected; 1 selected
-  unsigned foreColor0;
-  unsigned backColor1;
-  unsigned foreColor1;
-  unsigned displayMetrics;     //to show metrics on screen/reuse code for text viewing
-  char   *item;
-  int      itemIndex;          //-1 means ESC was pressed
-  LISTCHOICE *head;		//store head of the list
+	unsigned scrollActive;	//To know whether scroll is active or not.
+	unsigned scrollLimit;	//Last index for scroll.
+	unsigned listLength;	//Total no. of items in the list
+	unsigned currentListIndex;	//Pointer to new sublist of items when scrolling.
+	unsigned displayLimit;	//No. of elements to be displayed.
+	unsigned selectorLimit;	//how many items of string item can be displayed
+	unsigned scrollDirection;	//To keep track of scrolling Direction.
+	unsigned wherex;
+	unsigned wherey;
+	unsigned selector;	//Y++
+	unsigned backColor0;	//0 unselected; 1 selected
+	unsigned foreColor0;
+	unsigned backColor1;
+	unsigned foreColor1;
+	unsigned displayMetrics;	//to show metrics on screen/reuse code for text viewing
+	char *item;
+	int itemIndex;		//-1 means ESC was pressed
+	LISTCHOICE *head;	//store head of the list
 } SCROLLDATA;
 
 /*====================================================================*/
@@ -69,34 +69,31 @@ typedef struct _scrolldata {
 /*====================================================================*/
 extern LISTCHOICE *listBox1;	//Head pointer.
 
-
 /*====================================================================*/
 /* PROTOTYPES OF FUNCTIONS                                            */
 /*====================================================================*/
 
 //DYNAMIC LINKED LIST FUNCTIONS
-void    removeList(LISTCHOICE ** head);
+void removeList(LISTCHOICE ** head);
 LISTCHOICE *addatend(LISTCHOICE * head, LISTCHOICE * newp);
 LISTCHOICE *newitem(char *text);
 
 //LISTBOX FUNCTIONS
 //void    addItems(LISTCHOICE ** listBox1);
-char    listBox(LISTCHOICE * selector, unsigned whereX, unsigned whereY,
-		SCROLLDATA * scrollData, unsigned bColor0,
-		unsigned fColor0, unsigned bColor1, unsigned fColor1,
-		unsigned displayLimit,unsigned locked);
-void    loadlist(LISTCHOICE * head, SCROLLDATA * scrollData,
-		 unsigned indexAt);
+char listBox(LISTCHOICE * selector, unsigned whereX, unsigned whereY,
+	     SCROLLDATA * scrollData, unsigned bColor0,
+	     unsigned fColor0, unsigned bColor1, unsigned fColor1,
+	     unsigned displayLimit, unsigned locked);
+void loadlist(LISTCHOICE * head, SCROLLDATA * scrollData, unsigned indexAt);
 
-void printlist(LISTCHOICE * head, SCROLLDATA * scrollData, unsigned displayLimit);
+void printlist(LISTCHOICE * head, SCROLLDATA * scrollData,
+	       unsigned displayLimit);
 
-void    gotoIndex(LISTCHOICE ** aux, SCROLLDATA * scrollData,
-		  unsigned indexAt);
-int     query_length(LISTCHOICE ** head);
-int     move_selector(LISTCHOICE ** head, SCROLLDATA * scrollData);
-char    selectorMenu(LISTCHOICE * aux, SCROLLDATA * scrollData);
-void    displayItem(LISTCHOICE * aux, SCROLLDATA * scrollData, int select);
-
+void gotoIndex(LISTCHOICE ** aux, SCROLLDATA * scrollData, unsigned indexAt);
+int query_length(LISTCHOICE ** head);
+int move_selector(LISTCHOICE ** head, SCROLLDATA * scrollData);
+char selectorMenu(LISTCHOICE * aux, SCROLLDATA * scrollData);
+void displayItem(LISTCHOICE * aux, SCROLLDATA * scrollData, int select);
 
 /*====================================================================*/
 /* FUNCTION PROTOTYPES                                                */

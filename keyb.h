@@ -50,7 +50,6 @@ Last modified: 14/04/2019 Rename Headers
 #define K_HOME_TRAIL2 "\e[1~"
 #define K_END_TRAIL2 "\e[4~"
 
-
 #define K_DELETE "\e[3~"
 
 #define K_CTRL_A 0x01
@@ -87,7 +86,7 @@ Last modified: 14/04/2019 Rename Headers
 /* FUNCTION PROTOTYPES                                                */
 /*====================================================================*/
 
-int     read_keytrail(char chartrail[5]);
-int     read_accent(char *ch, char accentchar[2]);
+int read_keytrail(char chartrail[5]);
+int read_accent(char *ch, char accentchar[2]);
 
 #endif
