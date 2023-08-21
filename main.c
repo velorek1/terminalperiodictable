@@ -296,8 +296,8 @@ int main()
 	centerX = ((new_columns) / 2) - (strlen(titlemsg) / 2);
 	draw_screen();
 	//Check whether screen is big enough; if not, display error.    
-	/* if ((new_columns < MINWIDTH) || (new_rows < MINHEIGHT)) {
-		draw_window(screen1, (new_columns / 2) - 13, (new_rows / 2) - 2,
+	 if ((new_columns < MINWIDTH) || (new_rows < MINHEIGHT)) {
+		/*draw_window(screen1, (new_columns / 2) - 13, (new_rows / 2) - 2,
 			    (new_columns / 2) + 13, (new_rows / 2) + 2, B_WHITE,
 			    F_BLACK, B_RED, 1, 1, 1, 0);
 		write_str(screen1, (new_columns / 2) - 12, (new_rows / 2) - 2,
@@ -311,7 +311,12 @@ int main()
 		displaytable = FALSE;
 		old_rows = new_rows;
 		old_columns = new_columns;
-	} */
+		*/displaytable = TRUE;
+		write_str(screen1, 0,1, "RESIZE WINDOW!", B_RED,FH_WHITE,1);
+		dump_screen(screen1);
+		displayList();
+	
+	} 
 	if (displaytable == TRUE)
 		draw_table(1);
 	for (int i = 0; i < TABLESIZE; i++) {
