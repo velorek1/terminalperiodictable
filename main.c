@@ -311,7 +311,7 @@ int main()
 		displaytable = FALSE;
 		old_rows = new_rows;
 		old_columns = new_columns;
-		*/displaytable = TRUE;
+		*/displaytable = FALSE;
 		write_str(screen1, 0,1, "RESIZE WINDOW!", B_RED,FH_WHITE,1);
 		dump_screen(screen1);
 		displayList();
