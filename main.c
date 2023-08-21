@@ -1186,6 +1186,7 @@ int getElementfromFile(char *text, int elementNumber)
 {
 //get text data from file, max buffer 4096
 	char filename[] = "elements.dat";
+	char filename2[] = "/usr/share/ptable/elements.dat";
 	char buffer[MAXTEXT];
 	char dummy[4];
 	char start_str[6];
@@ -1193,11 +1194,12 @@ int getElementfromFile(char *text, int elementNumber)
 	char line[MAX_LINE_LENGTH];
 	int flag = 0;
 	FILE *fp;
+	FILE *fp2;
 	char ch = 0;
 	memset(buffer, 0, sizeof(buffer));
 	memset(line, 0, sizeof(line));
 	//memset(text, 0, sizeof(text));
-	if (access(filename, F_OK) == -1) {
+	if ((access(filename, F_OK) == -1) && (access(filename2,F_OK) ==-1)) {
 		//file not found; display error message and exit function
 		create_screen(&screen2);
 		copy_screen(screen2, screen1);
@@ -1228,11 +1230,13 @@ int getElementfromFile(char *text, int elementNumber)
 	strcpy(end_str, "\0");
 	strcpy(dummy, "\0");
 	fp = fopen(filename, "r");
+	fp2 = fopen(filename2, "r");
 
-	if (fp == NULL) {
+	if ((fp == NULL) && (fp2 == NULL)) {
 		printf("Error opening file\n");
 		exit(0);
 	}
+	if (fp2 != NULL) fp = fp2;
 	sprintf(dummy, "%d", elementNumber);
 	strcpy(start_str, "[");
 	strcat(start_str, dummy);
@@ -1260,7 +1264,8 @@ int getElementfromFile(char *text, int elementNumber)
 	strcat(buffer, "\0");
 	strcpy(text, buffer);
 
-	fclose(fp);
+	if (fp != NULL) fclose(fp);
+	if (fp2 != NULL) fclose(fp2);
 	return ch;
 }
 
