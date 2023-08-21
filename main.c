@@ -1264,8 +1264,7 @@ int getElementfromFile(char *text, int elementNumber)
 	strcat(buffer, "\0");
 	strcpy(text, buffer);
 
-	if (fp != NULL) fclose(fp);
-	if (fp2 != NULL) fclose(fp2);
+	if ((fp != NULL) || (fp2 != NULL)) fclose(fp);
 	return ch;
 }
 
