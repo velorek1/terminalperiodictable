@@ -166,6 +166,7 @@ void update_ch(int x, int y, wchar_t ch, char backcolor, char forecolor)
 	outputcolor(forecolor, backcolor);
 	if (ch > 31)
 		printf("%lc", ch);	//unicode
+	resetAnsi(0);
 }
 
 void write_ch(SCREENCELL *newScreen, int x, int y, wchar_t ch, char backcolor,
@@ -201,6 +202,7 @@ void write_ch(SCREENCELL *newScreen, int x, int y, wchar_t ch, char backcolor,
 			}
 		}
 	}
+	resetAnsi(0);
 }
 
 SCREENCELL read_cell(SCREENCELL *newScreen, int x, int y)

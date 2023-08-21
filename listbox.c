@@ -167,6 +167,7 @@ void displayItem(LISTCHOICE *aux, SCROLLDATA *scrollData, int select)
 {
 	size_t i = 0;
 	wchar_t newchar = 0;
+        resetAnsi(0);
 	switch (select) {
 
 	case SELECT_ITEM:

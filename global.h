@@ -11,8 +11,8 @@
 #define UNICODEBAR 0x2592
 #define ENDSIGNAL -1
 #define TABLESIZE 162
-#define MINWIDTH 113
-#define MINHEIGHT 36
+#define MINWIDTH 109
+#define MINHEIGHT 34
 #define MAXLINE 255
 #define MAXTEXT 8192
 #define MAXELEMENT 100
