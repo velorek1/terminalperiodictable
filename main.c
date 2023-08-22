@@ -287,6 +287,8 @@ int main()
   /*------------------------INITIAL VALUES----------------------------*/
 	setlocale(LC_ALL, "");	//set right unicode setting
 	init_term();
+        //Attempt to resize window
+	printf("\e[8;36;113t"); 
 	get_terminal_dimensions(&new_rows, &new_columns);
 
 	init_timer(&timer1, 150);
@@ -369,6 +371,11 @@ int main()
 		// write_num(screen1,1,5,currentPointer,B_GREEN,F_WHITE,1);
 		// write_num(screen1,1,6,oldPointer,B_RED,F_WHITE,1);
 		// write_num(screen1,1,7,periodictable[oldPointer].atomicNumber,B_CYAN,F_WHITE,1);
+		//Attempt to resize window
+		if (ch == 'x') { 
+			printf("\e[8;36;109t"); 
+			fflush(stdout);
+		}	
 		if (displaytable) {
 			if (ch == K_ENTER) {
 				//Tile info
@@ -393,7 +400,7 @@ int main()
 			if (ch == K_CTRL_H)
 				displayHelp();
 
-			//if (ch == 'x') status = ENDSIGNAL;
+       
 			if (ch == 'c')
 				displayColorKey();
 		}
