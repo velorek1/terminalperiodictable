@@ -323,7 +323,7 @@ int main()
 		}
 		write_str(screen1, 0,1, "X:RESIZE WINDOW!", B_RED,FH_WHITE,1);
 		dump_screen(screen1);
-		ch=displayList();
+		displayList();
 	
 	} 
 	if (displaytable == TRUE)
