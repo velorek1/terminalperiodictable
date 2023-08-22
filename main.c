@@ -227,6 +227,9 @@ char aboutMSG[8][MAXLINE] =
 char catInfo[11][MAXTEXT] =
     { INFO0, INFO1, INFO2, INFO3, INFO4, INFO5, INFO6, INFO7, INFO8, INFO9 };
 
+char miniTABLE[9][57] =
+    { TABLE0, TABLE1, TABLE2, TABLE3, TABLE4, TABLE5, TABLE6, TABLE7, TABLE8 };
+
 typedef struct {
 	unsigned x1, y1;
 	unsigned size;
@@ -311,7 +314,12 @@ int main()
 		displaytable = FALSE;
 		old_rows = new_rows;
 		old_columns = new_columns;
-		*/displaytable = FALSE;
+		*/
+		displaytable = FALSE;
+		window(screen1,(new_columns/2)-56/2,5,(new_columns/2)+56/2,15,B_WHITE,F_BLACK,1,1,0,1);  
+		for (int i=0; i<9; i++){
+			write_str(screen1,((new_columns/2)-56/2)+1,6+i,miniTABLE[i],B_WHITE,F_BLACK,1);
+		}
 		write_str(screen1, 0,1, "RESIZE WINDOW!", B_RED,FH_WHITE,1);
 		dump_screen(screen1);
 		displayList();
@@ -336,16 +344,16 @@ int main()
 
 		/* vi movement keys */
 		if (ch == 'l') {
-			step_right();
+			if (displaytable) step_right();
 			ch = 0;
 		} else if (ch == 'h') {
-			step_left();
+			if (displaytable) step_left();
 			ch = 0;
 		} else if (ch == 'j') {
-			step_down();
+			if (displaytable) step_down();
 			ch = 0;
 		} else if (ch == 'k') {
-			step_up();
+			if (displaytable) step_up();
 			ch = 0;
 		}
 
@@ -750,9 +758,14 @@ void _resizeScreen(void)
 			dump_screen(screen1);
 			displaytable = FALSE;
 			*/
-			displaytable = TRUE;
+			displaytable = FALSE;
 			write_str(screen1, 0,1, "RESIZE WINDOW!", B_RED,FH_WHITE,1);
 			dump_screen(screen1);
+			window(screen1,(new_columns/2)-56/2,5,(new_columns/2)+56/2,15,B_WHITE,F_BLACK,1,1,0,1);  
+		for (int i=0; i<9; i++){
+			write_str(screen1,((new_columns/2)-56/2)+1,6+i,miniTABLE[i],B_WHITE,F_BLACK,1);
+	  	        }
+		
 			displayList();
 			//old_rows = new_rows;
 			//old_columns = new_columns;
@@ -1312,13 +1325,13 @@ int special_keys()
 		// ARROW KEYS
 	} else if (strcmp(chartrail, K_LEFT_TRAIL) == 0) {
 		//Left-arrow key
-		step_left();
+		if (displaytable) step_left();
 	} else if (strcmp(chartrail, K_RIGHT_TRAIL) == 0) {
-		step_right();
+		if (displaytable) step_right();
 	} else if (strcmp(chartrail, K_UP_TRAIL) == 0) {
-		step_up();
+		if (displaytable) step_up();
 	} else if (strcmp(chartrail, K_DOWN_TRAIL) == 0) {
-		step_down();
+		if (displaytable) step_down();
 	} else if (strcmp(chartrail, K_ALT_S) == 0) {
 		displaySearch();
 	} else if (strcmp(chartrail, K_ALT_L) == 0) {

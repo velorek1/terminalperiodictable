@@ -59,6 +59,16 @@
 #define ABOUT6 "            Coded by v3l0r3k - v0.1 2023"
 #define ABOUT7 "              oldstuff286.blogspot.com"
 
+#define TABLE0 "H                                                    He\0"
+#define TABLE1 "Li Be                                B  C  N  O  F   Ne\0"
+#define TABLE2 "Na Mg                                Al Si P  S  Cl  Ar\0"
+#define TABLE3 "K  Ca Sc  Ti V  Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br  Kr\0"
+#define TABLE4 "Rb Sr Y   Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I   Xe\0"
+#define TABLE5 "Cs Ba La|_Hf Ta W  Re Os Ir Pt Au Hg Tl Pb Bi Po At  Rn\0"
+#define TABLE6 "Fr Ra Ac|_Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts  Og\0"
+#define TABLE7 "         _|La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu\0"
+#define TABLE8 "         _|Hf Ta W  Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn\0"
+
 #define INFO1 "Alkali metals: Group 1 elements in the periodic table that are highly reactive and have one valence electron. They include lithium (Li), sodium (Na), potassium (K), rubidium (Rb), cesium (Cs), and francium (Fr)."
 
 #define INFO2 "Alkaline earth metals: Group 2 elements in the periodic table that are also highly reactive and have two valence electrons. They include beryllium (Be), magnesium (Mg), calcium (Ca), strontium (Sr), barium (Ba), and radium (Ra)."
