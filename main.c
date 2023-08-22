@@ -288,7 +288,6 @@ int main()
 	setlocale(LC_ALL, "");	//set right unicode setting
 	init_term();
         //Attempt to resize window
-	printf("\e[8;36;113t"); 
 	get_terminal_dimensions(&new_rows, &new_columns);
 
 	init_timer(&timer1, 150);
@@ -322,7 +321,7 @@ int main()
 		for (int i=0; i<9; i++){
 			write_str(screen1,((new_columns/2)-56/2)+1,6+i,miniTABLE[i],B_WHITE,F_BLACK,1);
 		}
-		write_str(screen1, 0,1, "RESIZE WINDOW!", B_RED,FH_WHITE,1);
+		write_str(screen1, 0,1, "X:RESIZE WINDOW!", B_RED,FH_WHITE,1);
 		dump_screen(screen1);
 		displayList();
 	
@@ -371,9 +370,10 @@ int main()
 		// write_num(screen1,1,5,currentPointer,B_GREEN,F_WHITE,1);
 		// write_num(screen1,1,6,oldPointer,B_RED,F_WHITE,1);
 		// write_num(screen1,1,7,periodictable[oldPointer].atomicNumber,B_CYAN,F_WHITE,1);
+		
 		//Attempt to resize window
 		if (ch == 'x') { 
-			printf("\e[8;36;109t"); 
+			printf("\e[8;36;113t"); 
 			fflush(stdout);
 		}	
 		if (displaytable) {
@@ -766,7 +766,7 @@ void _resizeScreen(void)
 			displaytable = FALSE;
 			*/
 			displaytable = FALSE;
-			write_str(screen1, 0,1, "RESIZE WINDOW!", B_RED,FH_WHITE,1);
+			write_str(screen1, 0,1, "X:RESIZE WINDOW!", B_RED,FH_WHITE,1);
 			dump_screen(screen1);
 			window(screen1,(new_columns/2)-56/2,5,(new_columns/2)+56/2,15,B_WHITE,F_BLACK,1,1,0,1);  
 		for (int i=0; i<9; i++){
