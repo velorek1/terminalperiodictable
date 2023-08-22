@@ -323,7 +323,7 @@ int main()
 		}
 		write_str(screen1, 0,1, "X:RESIZE WINDOW!", B_RED,FH_WHITE,1);
 		dump_screen(screen1);
-		displayList();
+		ch=displayList();
 	
 	} 
 	if (displaytable == TRUE)
@@ -1351,7 +1351,10 @@ int special_keys()
 		return ENDSIGNAL;
 	} else if (strcmp(chartrail, K_ALT_A) == 0) {
 		displayAbout();
+	} else if (strcmp(chartrail, K_ALT_O) == 0) {
+		option_menu();
 	}
+
 	return 0;
 }
 
