@@ -78,7 +78,7 @@ char initials[NUMELEMENTS][3] = {
 	"Tb", "Bk", "Zn", "Cd", "Hg", "Cn", "Dy",
 	"Cf", "B", "Al", "Ga", "In", "Tl", "Nh",
 	"Ho", "Es", "C", "Si", "Ge", "Sn", "Pb",
-	"Fl", "Er", "Fm", "Ni", "P", "As", "Sb",
+	"Fl", "Er", "Fm", "N", "P", "As", "Sb",
 	"Bi", "Mc", "Tm", "Md", "O", "S", "Se",
 	"Te", "Po", "Lv", "Yb", "No", "F", "Cl",
 	"Br", "I", "At", "Ts", "Lu", "Lr", "He",
