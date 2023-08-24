@@ -931,6 +931,7 @@ int displayList()
 {
 	char ch = 0;
 	int noItems = new_rows - 16;
+	if (noItems<1) noItems =1;
 	resetScrollData();
 
 	scrollData.selectorLimit = (14 * 2) - 3;	//No. of chars per item display
