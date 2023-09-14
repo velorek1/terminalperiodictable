@@ -1,4 +1,4 @@
-# ptable
+# terminalperiodictable
 A beautiful TUI periodic table for GNU/linux terminals coded in C - no extra dependencies
 
 TO COMPILE and RUN:  
@@ -12,7 +12,7 @@ TO INSTALL:
 
     * Installation:
     - sudo make install
-    - Run as "ptable"
+    - Run as "tptable"
     
 ![Alt text](sc0.jpg?raw=true "Demo")
 
