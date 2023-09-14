@@ -5,8 +5,8 @@ TO COMPILE and RUN:
 
     * GNU/LINUX:
     - Download or clone repository.
-    - Type "make" to compile and "./ptable" to run-
-    - Alternatively, type "bash build.sh" and ./ptable" to run.
+    - Type "make" to compile and "./tptable" to run-
+    - Alternatively, type "bash build.sh" and ./tptable" to run.
 
 TO INSTALL:  
 
