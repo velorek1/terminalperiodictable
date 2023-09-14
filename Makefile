@@ -1,5 +1,5 @@
 .POSIX:
-TARGET = ptable
+TARGET = tptable
 CC     = cc
 CFLAGS = -Wall -Wextra
 LDFLAGS =
