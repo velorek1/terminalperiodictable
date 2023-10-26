@@ -323,7 +323,7 @@ int main()
 		}
 		write_str(screen1, 0,1, "X:RESIZE WINDOW!", B_RED,FH_WHITE,1);
 		dump_screen(screen1);
-		displayList();
+		//displayList();
 	
 	} 
 	if (displaytable == TRUE)
@@ -403,7 +403,12 @@ int main()
        
 			if (ch == 'c')
 				displayColorKey();
+		}else
+		{
+			if (ch == K_ENTER)
+				displayList();
 		}
+
 		if (ch == 's') {
 			//Hide-show table even if screen size is not big enough
 			if (blocked == FALSE) {
