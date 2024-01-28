@@ -287,151 +287,153 @@ int main()
   /*------------------------INITIAL VALUES----------------------------*/
 	setlocale(LC_ALL, "");	//set right unicode setting
 	init_term();
-        //Attempt to resize window
+        //Get window size
 	get_terminal_dimensions(&new_rows, &new_columns);
 
 	init_timer(&timer1, 150);
-	init_timer(&timer2, 150);
-	init_timer(&timer3, 150);
-	//Init Terminal
+init_timer(&timer2, 150);
+init_timer(&timer3, 150);
+//Init Terminal
+old_rows = new_rows;
+old_columns = new_columns;
+create_screen(&screen1);
+centerX = ((new_columns) / 2) - (strlen(titlemsg) / 2);
+draw_screen();
+//Check whether screen is big enough; if not, display error.    
+ if ((new_columns < MINWIDTH) || (new_rows < MINHEIGHT)) {
+	/*draw_window(screen1, (new_columns / 2) - 13, (new_rows / 2) - 2,
+		    (new_columns / 2) + 13, (new_rows / 2) + 2, B_WHITE,
+		    F_BLACK, B_RED, 1, 1, 1, 0);
+	write_str(screen1, (new_columns / 2) - 12, (new_rows / 2) - 2,
+		  WINERRMSGTL, B_RED, F_WHITE, 0);
+	write_str(screen1, (new_columns / 2) - 12, (new_rows / 2) - 1,
+		  WINERRMSGLN1, B_WHITE, F_BLACK, 0);
+	write_str(screen1, (new_columns / 2) - 12, (new_rows / 2),
+		  WINERRMSGLN2, B_WHITE, F_BLACK, 0);
+	write_str(screen1, (new_columns / 2) - 12, (new_rows / 2) + 1,
+		  WINERRMSGLN3, B_WHITE, F_BLACK, 0);
+	displaytable = FALSE;
 	old_rows = new_rows;
 	old_columns = new_columns;
-	create_screen(&screen1);
-	centerX = ((new_columns) / 2) - (strlen(titlemsg) / 2);
-	draw_screen();
-	//Check whether screen is big enough; if not, display error.    
-	 if ((new_columns < MINWIDTH) || (new_rows < MINHEIGHT)) {
-		/*draw_window(screen1, (new_columns / 2) - 13, (new_rows / 2) - 2,
-			    (new_columns / 2) + 13, (new_rows / 2) + 2, B_WHITE,
-			    F_BLACK, B_RED, 1, 1, 1, 0);
-		write_str(screen1, (new_columns / 2) - 12, (new_rows / 2) - 2,
-			  WINERRMSGTL, B_RED, F_WHITE, 0);
-		write_str(screen1, (new_columns / 2) - 12, (new_rows / 2) - 1,
-			  WINERRMSGLN1, B_WHITE, F_BLACK, 0);
-		write_str(screen1, (new_columns / 2) - 12, (new_rows / 2),
-			  WINERRMSGLN2, B_WHITE, F_BLACK, 0);
-		write_str(screen1, (new_columns / 2) - 12, (new_rows / 2) + 1,
-			  WINERRMSGLN3, B_WHITE, F_BLACK, 0);
-		displaytable = FALSE;
-		old_rows = new_rows;
-		old_columns = new_columns;
-		*/
-		displaytable = FALSE;
-		window(screen1,(new_columns/2)-56/2,5,(new_columns/2)+56/2,15,B_WHITE,F_BLACK,1,1,0,1);  
-		for (int i=0; i<9; i++){
-			write_str(screen1,((new_columns/2)-56/2)+1,6+i,miniTABLE[i],B_WHITE,F_BLACK,1);
-		}
-		write_str(screen1, 0,1, "X:RESIZE WINDOW!", B_RED,FH_WHITE,1);
-		dump_screen(screen1);
-		//displayList();
-	
-	} 
-	if (displaytable == TRUE)
-		draw_table(1);
-	for (int i = 0; i < TABLESIZE; i++) {
-		periodictable[i].is_selected = FALSE;
-	}
+	*/
+	displaytable = FALSE;
+	/*window(screen1,(new_columns/2)-56/2,5,(new_columns/2)+56/2,15,B_WHITE,F_BLACK,1,1,0,1);  
+	for (int i=0; i<9; i++){
+		write_str(screen1,((new_columns/2)-56/2)+1,6+i,miniTABLE[i],B_WHITE,F_BLACK,1);
+	}*/
+	write_str(screen1, 0,1, "X:RESIZE WINDOW >= 109x34!", B_RED,FH_WHITE,1);
+	write_str(screen1, 0,new_rows-2, "FAILSAFE MODE | S: OVERRIDE", B_MAGENTA,FH_WHITE,1);
 	dump_screen(screen1);
-	//resetch();
-	do {
-		keypressed = kbhit(1);
+	//displayList();
 
-		if (keypressed == TRUE)
-			ch = readch();
-		if (ch == K_ESCAPE) {
-			status = special_keys();
-			ch = 0;
-		}
+} 
+if (displaytable == TRUE)
+	draw_table(1);
+for (int i = 0; i < TABLESIZE; i++) {
+	periodictable[i].is_selected = FALSE;
+}
+dump_screen(screen1);
+//resetch();
+do {
+	keypressed = kbhit(1);
 
-		/* vi movement keys */
-		if (ch == 'l') {
-			if (displaytable) step_right();
-			ch = 0;
-		} else if (ch == 'h') {
-			if (displaytable) step_left();
-			ch = 0;
-		} else if (ch == 'j') {
-			if (displaytable) step_down();
-			ch = 0;
-		} else if (ch == 'k') {
-			if (displaytable) step_up();
-			ch = 0;
-		}
+	if (keypressed == TRUE)
+		ch = readch();
+	if (ch == K_ESCAPE) {
+		status = special_keys();
+		ch = 0;
+	}
 
-		if (timerC(&timer1) == TRUE) {
-			//Screen update
-			_resizeScreen();
-			ch = 0;
-		}
-		if (timerC(&timer2) == TRUE) {
-			//Animation in global.c
-			_animation();
-		}
-		// write_num(screen1,1,5,currentPointer,B_GREEN,F_WHITE,1);
-		// write_num(screen1,1,6,oldPointer,B_RED,F_WHITE,1);
-		// write_num(screen1,1,7,periodictable[oldPointer].atomicNumber,B_CYAN,F_WHITE,1);
-		
-		//Attempt to resize window
-		if (ch == 'x') { 
-			printf("\e[8;36;113t"); 
-			fflush(stdout);
-		}	
-		if (displaytable) {
-			if (ch == K_ENTER) {
-				//Tile info
-				resetScrollData();
-				memset(elementText, 0, sizeof(elementText));
-				getElementfromFile(elementText,
-						   periodictable[oldPointer].
-						   atomicNumber);
-				displayText(screen1, elementText);
-			}
-			//Failsafe keys for terminal compatibility
-			if (ch == K_CTRL_C)
-				status = ENDSIGNAL;
-			if (ch == K_CTRL_L)
-				option_menu();
-			if (ch == K_CTRL_B)
-				displayList();
-			if (ch == K_CTRL_A)
-				displayAbout();
-			if (ch == K_CTRL_S)
-				displaySearch();
-			if (ch == K_CTRL_H)
-				displayHelp();
+	/* vi movement keys */
+	if (ch == 'l') {
+		if (displaytable) step_right();
+		ch = 0;
+	} else if (ch == 'h') {
+		if (displaytable) step_left();
+		ch = 0;
+	} else if (ch == 'j') {
+		if (displaytable) step_down();
+		ch = 0;
+	} else if (ch == 'k') {
+		if (displaytable) step_up();
+		ch = 0;
+	}
 
-       
-			if (ch == 'c')
-				displayColorKey();
-		}else
-		{
-			if (ch == K_ENTER)
-				displayList();
-		}
+	if (timerC(&timer1) == TRUE) {
+		//Screen update
+		_resizeScreen();
+		ch = 0;
+	}
+	if (timerC(&timer2) == TRUE) {
+		//Animation in global.c
+		_animation();
+	}
+	// write_num(screen1,1,5,currentPointer,B_GREEN,F_WHITE,1);
+	// write_num(screen1,1,6,oldPointer,B_RED,F_WHITE,1);
+	// write_num(screen1,1,7,periodictable[oldPointer].atomicNumber,B_CYAN,F_WHITE,1);
+	
+	//Attempt to resize window
+	if (ch == 'x') { 
+		printf("\e[8;36;113t"); 
+		fflush(stdout);
+	}	
+		if (ch == K_CTRL_C)
+			status = ENDSIGNAL;
+		if (ch == K_CTRL_L)
+			option_menu();
+		if (ch == K_CTRL_B)
+			displayList();
+		if (ch == K_CTRL_A)
+			displayAbout();
+		if (ch == K_CTRL_S)
+			displaySearch();
+		if (ch == K_CTRL_H)
+			displayHelp();
 
-		if (ch == 's') {
-			//Hide-show table even if screen size is not big enough
-			if (blocked == FALSE) {
-				blocked = TRUE;
-				displaytable = FALSE;
-				draw_screen();
-				dump_screen(screen1);
-			} else {
-				displaytable = TRUE;
-				blocked = FALSE;
-				draw_screen();
-				draw_table(0);
-				dump_screen(screen1);
-			}
+
+	if (displaytable) {
+		if (ch == K_ENTER) {
+			//Tile info
+			resetScrollData();
+			memset(elementText, 0, sizeof(elementText));
+			getElementfromFile(elementText,
+					   periodictable[oldPointer].
+					   atomicNumber);
+			displayText(screen1, elementText);
 		}
-	} while (status != ENDSIGNAL);
-	if (screen1 != NULL)
-		deleteList(&screen1);
-	if (listBox1 != NULL)
-		removeList(&listBox1);
-	//restore terminal
-	close_term();
-	return 0;
+		//Failsafe keys for terminal compatibility
+
+		if (ch == 'c')
+			displayColorKey();
+	}else
+	{
+		if (ch == K_ENTER)
+			displayList();
+	}
+
+	if (ch == 's') {
+		//Hide-show table even if screen size is not big enough
+		if (blocked == FALSE) {
+			blocked = TRUE;
+			displaytable = FALSE;
+			draw_screen();
+			dump_screen(screen1);
+		} else {
+			displaytable = TRUE;
+			blocked = FALSE;
+			draw_screen();
+			draw_table(0);
+			dump_screen(screen1);
+		}
+	}
+} while (status != ENDSIGNAL);
+if (screen1 != NULL)
+	deleteList(&screen1);
+if (listBox1 != NULL)
+	removeList(&listBox1);
+//restore terminal
+close_term();
+return 0;
 }
 
 void getColorScheme(int index, int *bcol, int *fcol, BOOL simple)
@@ -448,281 +450,281 @@ void getColorScheme(int index, int *bcol, int *fcol, BOOL simple)
 8 Lanthanides - Cyan/black
 9 Actinides - Yellow/white
 */
-	int getColorFrom = 0;
-	if (!simple) {
-		getColorFrom = colorScheme[index];
-	} else {
-		getColorFrom = index;
-	}
+int getColorFrom = 0;
+if (!simple) {
+	getColorFrom = colorScheme[index];
+} else {
+	getColorFrom = index;
+}
 
-	switch (getColorFrom) {
-	case 0:
-		*bcol = B_BLACK;
-		*fcol = FH_WHITE;
-		break;
-	case 1:
-		*bcol = B_GREEN;
-		*fcol = FH_WHITE;
-		break;
-	case 2:
-		*bcol = B_RED;
-		*fcol = FH_WHITE;
-		break;
-	case 3:
-		*bcol = B_CYAN;
-		*fcol = FH_WHITE;
-		break;
-	case 4:
-		*bcol = B_GREEN;
-		*fcol = F_BLACK;
-		break;
-	case 5:
-		*bcol = B_YELLOW;
-		*fcol = F_BLACK;
-		break;
-	case 6:
-		*bcol = B_BLUE;
-		*fcol = FH_WHITE;
-		break;
-	case 7:
-		*bcol = B_MAGENTA;
-		*fcol = FH_WHITE;
-		break;
-	case 8:
-		*bcol = B_CYAN;
-		*fcol = F_BLACK;
-		break;
-	case 9:
-		*bcol = B_YELLOW;
-		*fcol = FH_WHITE;
-		break;
+switch (getColorFrom) {
+case 0:
+	*bcol = B_BLACK;
+	*fcol = FH_WHITE;
+	break;
+case 1:
+	*bcol = B_GREEN;
+	*fcol = FH_WHITE;
+	break;
+case 2:
+	*bcol = B_RED;
+	*fcol = FH_WHITE;
+	break;
+case 3:
+	*bcol = B_CYAN;
+	*fcol = FH_WHITE;
+	break;
+case 4:
+	*bcol = B_GREEN;
+	*fcol = F_BLACK;
+	break;
+case 5:
+	*bcol = B_YELLOW;
+	*fcol = F_BLACK;
+	break;
+case 6:
+	*bcol = B_BLUE;
+	*fcol = FH_WHITE;
+	break;
+case 7:
+	*bcol = B_MAGENTA;
+	*fcol = FH_WHITE;
+	break;
+case 8:
+	*bcol = B_CYAN;
+	*fcol = F_BLACK;
+	break;
+case 9:
+	*bcol = B_YELLOW;
+	*fcol = FH_WHITE;
+	break;
 
-	}
+}
 }
 
 void resetTable()
 {
-	int bcol = 0, fcol = 0;
+int bcol = 0, fcol = 0;
 //reset table values
-	write_str(screen1, 0, 3, "                           ", B_BLACK,
-		  F_BLACK, FALSE);
+write_str(screen1, 0, 3, "                           ", B_BLACK,
+	  F_BLACK, FALSE);
 
-	//Clear previous tile
-	if (currentPointer != oldPointer) {
-		getColorScheme(oldElement, &bcol, &fcol, FALSE);
-		draw_window(screen1, lastX1, lastY1, lastX2, lastY2, B_WHITE,
-			    F_BLACK, B_BLACK, 1, 0, 0, 0);
-		write_str(screen1, lastX1 + 1, lastY1, atomicNumber[oldElement],
-			  bcol, fcol, FALSE);
-		write_str(screen1, lastX1 + 2, lastY1 + 1, initials[oldElement],
-			  B_WHITE, F_BLACK, FALSE);
-		periodictable[oldPointer].is_selected = FALSE;
-	}
+//Clear previous tile
+if (currentPointer != oldPointer) {
+	getColorScheme(oldElement, &bcol, &fcol, FALSE);
+	draw_window(screen1, lastX1, lastY1, lastX2, lastY2, B_WHITE,
+		    F_BLACK, B_BLACK, 1, 0, 0, 0);
+	write_str(screen1, lastX1 + 1, lastY1, atomicNumber[oldElement],
+		  bcol, fcol, FALSE);
+	write_str(screen1, lastX1 + 2, lastY1 + 1, initials[oldElement],
+		  B_WHITE, F_BLACK, FALSE);
+	periodictable[oldPointer].is_selected = FALSE;
+}
 
-	for (int i = 0; i < TABLESIZE; i++) {
-		periodictable[i].is_selected = FALSE;
-	}
-	lastX1 = 0, lastY1 = 0, lastX2 = 0, lastY2 = 0;
-	currentPointer = 0, oldPointer = 0, oldElement = 0, currentDirection =
-	    0;
+for (int i = 0; i < TABLESIZE; i++) {
+	periodictable[i].is_selected = FALSE;
+}
+lastX1 = 0, lastY1 = 0, lastX2 = 0, lastY2 = 0;
+currentPointer = 0, oldPointer = 0, oldElement = 0, currentDirection =
+    0;
 
 }
 
 void selectItem(int direction)
 {
-	int i = 0;
-	int bcol = 0, fcol = 0;
+int i = 0;
+int bcol = 0, fcol = 0;
 
 //Unselect previous tile
-	if (currentPointer != oldPointer) {
-		getColorScheme(oldElement, &bcol, &fcol, FALSE);
-		draw_window(screen1, lastX1, lastY1, lastX2, lastY2, B_WHITE,
-			    F_BLACK, B_BLACK, 1, 0, 0, 0);
-		write_str(screen1, lastX1 + 1, lastY1, atomicNumber[oldElement],
-			  bcol, fcol, FALSE);
-		write_str(screen1, lastX1 + 2, lastY1 + 1, initials[oldElement],
-			  B_WHITE, F_BLACK, FALSE);
-		periodictable[oldPointer].is_selected = FALSE;
-	}
+if (currentPointer != oldPointer) {
+	getColorScheme(oldElement, &bcol, &fcol, FALSE);
+	draw_window(screen1, lastX1, lastY1, lastX2, lastY2, B_WHITE,
+		    F_BLACK, B_BLACK, 1, 0, 0, 0);
+	write_str(screen1, lastX1 + 1, lastY1, atomicNumber[oldElement],
+		  bcol, fcol, FALSE);
+	write_str(screen1, lastX1 + 2, lastY1 + 1, initials[oldElement],
+		  B_WHITE, F_BLACK, FALSE);
+	periodictable[oldPointer].is_selected = FALSE;
+}
 //Go forward down key
-	if (direction == 1) {
-		for (i = currentPointer; i < TABLESIZE; i++) {
-			if (periodictable[i].is_drawn == TRUE) {
-				periodictable[i].is_selected = TRUE;
-				currentPointer = i;
-				currentPointer++;
-				break;
-			}
-
+if (direction == 1) {
+	for (i = currentPointer; i < TABLESIZE; i++) {
+		if (periodictable[i].is_drawn == TRUE) {
+			periodictable[i].is_selected = TRUE;
+			currentPointer = i;
+			currentPointer++;
+			break;
 		}
+
 	}
+}
 //Go RIGHT key
-	if (direction == 2) {
-		for (i = currentPointer; i < TABLESIZE; i++) {
-			if (periodictable[i].is_drawn == TRUE) {
-				periodictable[i].is_selected = TRUE;
-				currentPointer = i;
-				currentPointer = currentPointer + 9;
-				break;
-			}
-
+if (direction == 2) {
+	for (i = currentPointer; i < TABLESIZE; i++) {
+		if (periodictable[i].is_drawn == TRUE) {
+			periodictable[i].is_selected = TRUE;
+			currentPointer = i;
+			currentPointer = currentPointer + 9;
+			break;
 		}
+
 	}
+}
 //Go LEFT key
-	if (direction == -2) {
-		for (i = currentPointer; i >= 0; i--) {
-			if (periodictable[i].is_drawn == TRUE) {
-				periodictable[i].is_selected = TRUE;
-				currentPointer = i;
-				currentPointer = currentPointer - 9;
-				break;
-			}
+if (direction == -2) {
+	for (i = currentPointer; i >= 0; i--) {
+		if (periodictable[i].is_drawn == TRUE) {
+			periodictable[i].is_selected = TRUE;
+			currentPointer = i;
+			currentPointer = currentPointer - 9;
+			break;
 		}
-
 	}
+
+}
 //Go backwards up key
-	if (direction == -1) {
-		for (i = currentPointer; i >= 0; i--) {
-			if (periodictable[i].is_drawn == TRUE) {
-				periodictable[i].is_selected = TRUE;
-				currentPointer = i;
-				currentPointer--;
-				break;
-			}
+if (direction == -1) {
+	for (i = currentPointer; i >= 0; i--) {
+		if (periodictable[i].is_drawn == TRUE) {
+			periodictable[i].is_selected = TRUE;
+			currentPointer = i;
+			currentPointer--;
+			break;
 		}
+	}
 
-	}
+}
 //If table is active always point to first element when you reach it
-	if (currentPointer == -1) {
-		currentPointer = 1;
-		oldPointer = 1;
-	}
+if (currentPointer == -1) {
+	currentPointer = 1;
+	oldPointer = 1;
+}
 }
 
 void draw_table(int raw)
 {
 //draw elements in the periodic table
-	int bcol, fcol;
-	int track_columns = 0;
-	int track_rows = 0;
-	int i = 0;
+int bcol, fcol;
+int track_columns = 0;
+int track_rows = 0;
+int i = 0;
 //Shifty helps to separate the last 2 rows of the table
-	int shifty = 0;
-	int centerTableX = (new_columns / 2) - 54;
-	int counterElement = 0;
-	int counterAtomic = 0;
+int shifty = 0;
+int centerTableX = (new_columns / 2) - 54;
+int counterElement = 0;
+int counterAtomic = 0;
 
 //Map elements and store atomic Numbers in position
-	for (i = 0; i < TABLESIZE; i++) {
-		periodictable[i].is_drawn = table[i];
-		if (periodictable[i].is_drawn) {
-			periodictable[i].atomicNumber =
-			    atoi(atomicNumber[counterAtomic]);
-			counterAtomic++;
-		}
+for (i = 0; i < TABLESIZE; i++) {
+	periodictable[i].is_drawn = table[i];
+	if (periodictable[i].is_drawn) {
+		periodictable[i].atomicNumber =
+		    atoi(atomicNumber[counterAtomic]);
+		counterAtomic++;
 	}
+}
 
-	for (i = 0; i < TABLESIZE; i++) {
-		if (i % 9 == 0 && i != 0)
-			track_columns = track_columns + 6;
-		if (track_rows == 9)
-			track_rows = 0;
-		if (track_rows > 6)
-			shifty = 2;
-		else
-			shifty = 0;
+for (i = 0; i < TABLESIZE; i++) {
+	if (i % 9 == 0 && i != 0)
+		track_columns = track_columns + 6;
+	if (track_rows == 9)
+		track_rows = 0;
+	if (track_rows > 6)
+		shifty = 2;
+	else
+		shifty = 0;
 
-		if (periodictable[i].is_drawn == TRUE) {
-			if (periodictable[i].is_selected == FALSE && raw != 2) {
+	if (periodictable[i].is_drawn == TRUE) {
+		if (periodictable[i].is_selected == FALSE && raw != 2) {
+			draw_window(screen1,
+				    centerTableX + track_columns,
+				    5 + (3 * track_rows) + shifty,
+				    centerTableX + 5 + track_columns,
+				    7 + (3 * track_rows) + shifty,
+				    B_WHITE, F_BLACK, B_BLACK, 1, 0, 1,
+				    raw);
+			getColorScheme(counterElement, &bcol, &fcol,
+				       FALSE);
+			write_str(screen1,
+				  centerTableX + track_columns + 1,
+				  5 + (3 * track_rows) + shifty,
+				  atomicNumber[counterElement], bcol,
+				  fcol, FALSE);
+			write_str(screen1,
+				  centerTableX + track_columns + 2,
+				  5 + (3 * track_rows) + shifty + 1,
+				  initials[counterElement], B_WHITE,
+				  F_BLACK, FALSE);
+		} else {
+			if (periodictable[i].is_selected == TRUE) {
+				//Safe coordinates of selected tile to late un-select next time from selectItem
+				//select new tile and save coordinates; save element indeces too
 				draw_window(screen1,
-					    centerTableX + track_columns,
-					    5 + (3 * track_rows) + shifty,
-					    centerTableX + 5 + track_columns,
-					    7 + (3 * track_rows) + shifty,
-					    B_WHITE, F_BLACK, B_BLACK, 1, 0, 1,
-					    raw);
-				getColorScheme(counterElement, &bcol, &fcol,
-					       FALSE);
+					    centerTableX +
+					    track_columns,
+					    5 + (3 * track_rows) +
+					    shifty,
+					    centerTableX + 5 +
+					    track_columns,
+					    7 + (3 * track_rows) +
+					    shifty, B_BLUE, FH_WHITE,
+					    B_BLACK, 1, 0, 0, 0);
 				write_str(screen1,
-					  centerTableX + track_columns + 1,
+					  centerTableX + track_columns +
+					  1,
 					  5 + (3 * track_rows) + shifty,
-					  atomicNumber[counterElement], bcol,
-					  fcol, FALSE);
+					  atomicNumber[counterElement],
+					  B_WHITE, F_BLACK, FALSE);
 				write_str(screen1,
-					  centerTableX + track_columns + 2,
-					  5 + (3 * track_rows) + shifty + 1,
-					  initials[counterElement], B_WHITE,
-					  F_BLACK, FALSE);
-			} else {
-				if (periodictable[i].is_selected == TRUE) {
-					//Safe coordinates of selected tile to late un-select next time from selectItem
-					//select new tile and save coordinates; save element indeces too
-					draw_window(screen1,
-						    centerTableX +
-						    track_columns,
-						    5 + (3 * track_rows) +
-						    shifty,
-						    centerTableX + 5 +
-						    track_columns,
-						    7 + (3 * track_rows) +
-						    shifty, B_BLUE, FH_WHITE,
-						    B_BLACK, 1, 0, 0, 0);
-					write_str(screen1,
-						  centerTableX + track_columns +
-						  1,
-						  5 + (3 * track_rows) + shifty,
-						  atomicNumber[counterElement],
-						  B_WHITE, F_BLACK, FALSE);
-					write_str(screen1,
-						  centerTableX + track_columns +
-						  2,
-						  5 + (3 * track_rows) +
-						  shifty + 1,
-						  initials[counterElement],
-						  B_BLUE, FH_WHITE, FALSE);
-					lastX1 = centerTableX + track_columns;
-					lastY1 = 5 + (3 * track_rows) + shifty;
-					lastX2 =
-					    centerTableX + 5 + track_columns;
-					lastY2 = 7 + (3 * track_rows) + shifty;
-					oldPointer = i;
-					oldElement = counterElement;
-					write_str(screen1, 0, 3,
-						  "                           ",
-						  B_BLACK, F_BLACK, FALSE);
-					write_str(screen1, 0, 3,
-						  nameinColumns[counterElement],
-						  B_BLACK, FH_YELLOW, FALSE);
-					dump_screen(screen1);
-				}
+					  centerTableX + track_columns +
+					  2,
+					  5 + (3 * track_rows) +
+					  shifty + 1,
+					  initials[counterElement],
+					  B_BLUE, FH_WHITE, FALSE);
+				lastX1 = centerTableX + track_columns;
+				lastY1 = 5 + (3 * track_rows) + shifty;
+				lastX2 =
+				    centerTableX + 5 + track_columns;
+				lastY2 = 7 + (3 * track_rows) + shifty;
+				oldPointer = i;
+				oldElement = counterElement;
+				write_str(screen1, 0, 3,
+					  "                           ",
+					  B_BLACK, F_BLACK, FALSE);
+				write_str(screen1, 0, 3,
+					  nameinColumns[counterElement],
+					  B_BLACK, FH_YELLOW, FALSE);
+				dump_screen(screen1);
 			}
-			counterElement++;
-
 		}
-		track_rows++;
+		counterElement++;
+
 	}
+	track_rows++;
+}
 }
 
 void draw_screen()
 {
 //This function draws the base screen
-	int i = 0;
-	if (screen1 != NULL)
-		deleteList(&screen1);
-	create_screen(&screen1);
-	screen_color(screen1, B_BLUE, F_WHITE, UNICODEBAR);
-	//Top-Bar
-	for (i = 0; i < new_columns; i++) {
-		write_ch(screen1, i, 1, UNICODEBAR, B_BLUE, F_BLACK, FALSE);
-		write_ch(screen1, i, 2, 0x20, B_WHITE, F_WHITE, FALSE);
-		write_ch(screen1, i, 3, 0x20, B_BLACK, F_WHITE, FALSE);
-		write_ch(screen1, i, new_rows, 0x20, B_WHITE, F_BLUE, FALSE);
-	}
-	write_str(screen1, centerX, 1, titlemsg, B_BLACK, F_WHITE, FALSE);
-	write_str(screen1, 1, new_rows, STATUSMSG1, B_WHITE, F_BLACK, FALSE);
-	write_str(screen1, 1, 2, "OPTIONS | ", B_WHITE, F_BLACK, FALSE);
-	write_str(screen1, 0, new_rows - 1,
-		  "^v<> NAVIGATE TABLE | ENTER: INFO DIALOG | C: COLOR KEY",
+int i = 0;
+if (screen1 != NULL)
+	deleteList(&screen1);
+create_screen(&screen1);
+screen_color(screen1, B_BLUE, F_WHITE, UNICODEBAR);
+//Top-Bar
+for (i = 0; i < new_columns; i++) {
+	write_ch(screen1, i, 1, UNICODEBAR, B_BLUE, F_BLACK, FALSE);
+	write_ch(screen1, i, 2, 0x20, B_WHITE, F_WHITE, FALSE);
+	write_ch(screen1, i, 3, 0x20, B_BLACK, F_WHITE, FALSE);
+	write_ch(screen1, i, new_rows, 0x20, B_WHITE, F_BLUE, FALSE);
+}
+write_str(screen1, centerX, 1, titlemsg, B_BLACK, F_WHITE, FALSE);
+write_str(screen1, 1, new_rows, STATUSMSG1, B_WHITE, F_BLACK, FALSE);
+write_str(screen1, 1, 2, "OPTIONS | ", B_WHITE, F_BLACK, FALSE);
+write_str(screen1, 0, new_rows - 1,
+	  "^v<> h-j|k-l NAVIGATE TABLE | ENTER: INFO DIALOG | C: COLOR KEY",
 		  B_BLUE, FH_WHITE, FALSE);
 
 	dump_screen(screen1);
@@ -771,14 +773,16 @@ void _resizeScreen(void)
 			displaytable = FALSE;
 			*/
 			displaytable = FALSE;
-			write_str(screen1, 0,1, "X:RESIZE WINDOW!", B_RED,FH_WHITE,1);
+			write_str(screen1, 0,1, "X:RESIZE WINDOW >= 109x34!", B_RED,FH_WHITE,1);
+	  	        write_str(screen1, 0,new_rows-2, "FAILSAFE MODE | S: OVERRIDE", B_MAGENTA,FH_WHITE,1);
+			
 			dump_screen(screen1);
-			window(screen1,(new_columns/2)-56/2,5,(new_columns/2)+56/2,15,B_WHITE,F_BLACK,1,1,0,1);  
+			/*window(screen1,(new_columns/2)-56/2,5,(new_columns/2)+56/2,15,B_WHITE,F_BLACK,1,1,0,1);  
 		for (int i=0; i<9; i++){
 			write_str(screen1,((new_columns/2)-56/2)+1,6+i,miniTABLE[i],B_WHITE,F_BLACK,1);
 	  	        }
 		
-			displayList();
+			displayList();*/
 			//old_rows = new_rows;
 			//old_columns = new_columns;
 		} else {
