@@ -264,14 +264,6 @@ void resetScrollData(void);
 //void    credits();
 void draw_screen(void);
 void draw_table(int raw);
-//<<<<<<< function_arguments
-int special_keys(void);
-void step_right(void);
-void step_left(void);
-void step_down(void);
-void step_up(void);
-void getColorScheme(int index, int *bcol, int *fcol, BOOL simple);
-void option_menu(void);
 //=======
 int special_keys(void);
 void step_right(void);
