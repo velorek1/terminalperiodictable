@@ -81,7 +81,7 @@ Last modified: 15/09/2021 + Linux Term
 
 //#define K_UP_ARROW 'A'      // K_ESCAPE + 'A' -> UP_ARROW
 //#define K_DOWN_ARROW 'B'    // K_ESCAPE + 'B' -> DOWN_ARROW
-typedef int BOOL;
+// typedef int _Bool;
 
 /*====================================================================*/
 /* FUNCTION PROTOTYPES                                                */

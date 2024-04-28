@@ -170,7 +170,7 @@ void update_ch(int x, int y, wchar_t ch, char backcolor, char forecolor)
 }
 
 void write_ch(SCREENCELL *newScreen, int x, int y, wchar_t ch, char backcolor,
-	      char forecolor, BOOL raw)
+	      char forecolor, _Bool raw)
 {
 /* Update cell on screenbuffer. It will be shown on screen when it is updated by calling update_screen */
 	int i, pos;
@@ -257,7 +257,7 @@ wchar_t read_char(SCREENCELL *newScreen, int x, int y)
 /*------------------------------------------*/
 
 void write_str(SCREENCELL *newScreen, int x, int y, char *str, char backcolor,
-	       char forecolor, BOOL raw)
+	       char forecolor, _Bool raw)
 {
 	//Writes a string of characters to buffer.
 	char *astr = NULL;
@@ -281,7 +281,7 @@ void write_str(SCREENCELL *newScreen, int x, int y, char *str, char backcolor,
 /*-----------------------------------------------*/
 
 int write_num(SCREENCELL *newScreen, int x, int y, int num, char backcolor,
-	      char forecolor, BOOL raw)
+	      char forecolor, _Bool raw)
 {
 	//the length of the string must be passed on the function
 	char astr[30];
@@ -426,8 +426,8 @@ void xor_copy(SCREENCELL *screen1, SCREENCELL *screen2)
 /*------------------------------------------*/
 
 void draw_window(SCREENCELL *newScreen, int x1, int y1, int x2, int y2,
-		 int backcolor, int bordercolor, int titlecolor, BOOL border,
-		 BOOL title, BOOL shadow, BOOL raw)
+		 int backcolor, int bordercolor, int titlecolor, _Bool border,
+		 _Bool title, _Bool shadow, _Bool raw)
 {
 /*
    Draw a box on screen

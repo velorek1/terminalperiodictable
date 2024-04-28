@@ -17,7 +17,7 @@
 /*----------------------------*/
 int textbox(SCREENCELL *newScreen, int wherex, int wherey, int displayLength,
 	    char *label, char text[MAX_TEXT], int backcolor,
-	    int labelcolor, int textcolor, BOOL raw, BOOL locked)
+	    int labelcolor, int textcolor, _Bool raw, _Bool locked)
 {
 	int charCount = 0;
 	int exitFlag = 0;
