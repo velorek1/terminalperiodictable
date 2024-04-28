@@ -1,7 +1,7 @@
 #include "global.h"
 #include "rterm.h"
 #include "time.h"
-int _animation()
+int _animation(void)
 {
 	time_t mytime = time(NULL);
 	char *time_str = ctime(&mytime);

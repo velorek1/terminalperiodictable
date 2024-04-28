@@ -48,7 +48,7 @@ void pushTerm()
 /*---------------------------*/
 /* Reset terminal to failsafe*/
 /*---------------------------*/
-int resetTerm()
+int resetTerm(void)
 {
 	//tcsetattr(0, TCSANOW, &failsafe);
 	/* flush and reset */
@@ -97,7 +97,7 @@ int kbhit()
 /*----------------------*/
 /*Read char with control*/
 /*----------------------*/
-int readch()
+int readch(void)
 {
 	char ch;
 	if (peek_character != -1) {
@@ -109,7 +109,7 @@ int readch()
 	return ch;
 }
 
-void resetch()
+void resetch(void)
 {
 //Clear ch
 	term.c_cc[VMIN] = 0;
@@ -181,7 +181,7 @@ int get_terminal_dimensions(int *rows, int *columns)
 /*--------------------------*/
 /* Ansi function hide cursor*/
 /*--------------------------*/
-void hidecursor()
+void hidecursor(void)
 {
 	printf("\e[?25l");
 }
@@ -189,7 +189,7 @@ void hidecursor()
 /*--------------------------*/
 /* Ansi function show cursor*/
 /*--------------------------*/
-void showcursor()
+void showcursor(void)
 {
 	printf("\e[?25h");
 }
@@ -200,7 +200,7 @@ void showcursor()
 
 //For code simplification purposes
 
-void init_term()
+void init_term(void)
 {
 	hidecursor();
 	pushTerm();
@@ -209,7 +209,7 @@ void init_term()
 	setlocale(LC_ALL, "");
 }
 
-void close_term()
+void close_term(void)
 {
 	showcursor();
 	resetTerm();

@@ -87,21 +87,21 @@ Last modified: 15/09/2021 + Linux Term
 /* FUNCTION PROTOTYPES                                                */
 /*====================================================================*/
 
-void pushTerm();
-int resetTerm();
+void pushTerm(void);
+int resetTerm(void);
 int kbhit(int timeout_ms);
 
-int readch();
-char getch();
-void resetch();
+int readch(void);
+char getch(void);
+void resetch(void);
 //char    getch(void);
 void gotoxy(int x, int y);
 void outputcolor(int foreground, int background);
 void screencol(int x);
 void resetAnsi(int x);
 int get_terminal_dimensions(int *rows, int *columns);
-void showcursor();
-void hidecursor();
-void init_term();
-void close_term();
+void showcursor(void);
+void hidecursor(void);
+void init_term(void);
+void close_term(void);
 #endif
