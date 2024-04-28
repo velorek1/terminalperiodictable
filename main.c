@@ -252,25 +252,25 @@ int new_rows = 0, new_columns = 0, old_rows = 0, old_columns = 0;	// Terminal di
 /*====================================================================*/
 
 //Display prototypes
-int displayColorKey();
-int displayHelp();
-int displayList();
-int displayInfo();
+int displayColorKey(void);
+int displayHelp(void);
+int displayList(void);
+int displayInfo(void);
 int displayText(SCREENCELL * aux, char *text);
-int displayAbout();
-int displaySearch();
+int displayAbout(void);
+int displaySearch(void);
 void selectItem(int direction);
-void resetScrollData();
+void resetScrollData(void);
 //void    credits();
-void draw_screen();
+void draw_screen(void);
 void draw_table(int raw);
-int special_keys();
-void step_right();
-void step_left();
-void step_down();
-void step_up();
+int special_keys(void);
+void step_right(void);
+void step_left(void);
+void step_down(void);
+void step_up(void);
 void getColorScheme(int index, int *bcol, int *fcol, BOOL simple);
-void option_menu();
+void option_menu(void);
 int getElementfromFile(char *text, int elementNumber);
 
 //Timers
@@ -280,7 +280,7 @@ void _resizeScreen();
 /* MAIN PROGRAM - CODE                                                */
 /*====================================================================*/
 
-int main()
+int main(void)
 {
 	char ch = 0;
 	int keypressed = 0;
@@ -502,7 +502,7 @@ case 9:
 }
 }
 
-void resetTable()
+void resetTable(void)
 {
 int bcol = 0, fcol = 0;
 //reset table values
@@ -705,7 +705,7 @@ for (i = 0; i < TABLESIZE; i++) {
 }
 }
 
-void draw_screen()
+void draw_screen(void)
 {
 //This function draws the base screen
 int i = 0;
@@ -804,7 +804,7 @@ void addItems(LISTCHOICE **listBox1, char textarray[][MAXLINE], int rows)
 	}
 }
 
-int displayHelp()
+int displayHelp(void)
 {
 	char ch = 0;
 	resetScrollData();
@@ -831,7 +831,7 @@ int displayHelp()
 	return ch;
 }
 
-int displayAbout()
+int displayAbout(void)
 {
 	char ch = 0;
 	int i = 0;
@@ -902,7 +902,7 @@ int displayAbout()
 	return ch;
 }
 
-int displayColorKey()
+int displayColorKey(void)
 {
 	//Color Key
 	char ch = 0;
@@ -936,7 +936,7 @@ int displayColorKey()
 	return ch;
 }
 
-int displayList()
+int displayList(void)
 {
 	char ch = 0;
 	int noItems = new_rows - 16;
@@ -979,7 +979,7 @@ int displayList()
 	return ch;
 }
 
-int displayInfo()
+int displayInfo(void)
 {
 	char ch = 0;
 	//loop here to go back to menu after displaying text
@@ -1095,7 +1095,7 @@ int displayText(SCREENCELL *aux, char *text)
 	return ch;
 }
 
-int displaySearch()
+int displaySearch(void)
 {
 	char texto[MAXLINE];
 	char lowercase[MAXLINE];
@@ -1182,7 +1182,7 @@ void resetScrollData()
 	scrollData.itemIndex = 0;
 }
 
-void option_menu()
+void option_menu(void)
 {
 	char ch = 0;
 	resetScrollData();
@@ -1303,7 +1303,7 @@ int getElementfromFile(char *text, int elementNumber)
 	return ch;
 }
 
-int special_keys()
+int special_keys(void)
 {
 /* MANAGE SPECIAL KEYS */
 /* 
@@ -1368,7 +1368,7 @@ int special_keys()
 	return 0;
 }
 
-void step_right()
+void step_right(void)
 {
 	if (oldPointer != 0)
 		currentPointer = oldPointer + 9;
@@ -1377,7 +1377,7 @@ void step_right()
 	currentDirection = 2;
 }
 
-void step_left()
+void step_left(void)
 {
 	if (oldPointer != 0)
 		currentPointer = oldPointer - 9;
@@ -1386,7 +1386,7 @@ void step_left()
 	currentDirection = -2;
 }
 
-void step_down()
+void step_down(void)
 {
 	if (oldPointer != 0)
 		currentPointer = oldPointer + 1;
@@ -1395,7 +1395,7 @@ void step_down()
 	currentDirection = 1;
 }
 
-void step_up()
+void step_up(void)
 {
 	if (oldPointer != 0)
 		currentPointer = oldPointer - 1;

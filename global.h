@@ -104,6 +104,6 @@ extern BOOL blocked;
 
 extern int new_rows, new_columns, old_rows, old_columns;	// Terminal dimensions
 
-int _animation();
+int _animation(void);
 
 #endif
