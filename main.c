@@ -36,7 +36,7 @@ NTIMER timer1;
 NTIMER timer2;
 NTIMER timer3;
 SCROLLDATA scrollData;
-BOOL blocked = FALSE;
+_Bool blocked = FALSE;
 int lastX1 = 0, lastY1 = 0, lastX2 = 0, lastY2 = 0;
 int currentPointer = 0, oldPointer = 0, oldElement = 0, currentDirection = 0;
 size_t animation = 0;
@@ -235,15 +235,15 @@ typedef struct {
 	unsigned size;
 	int color;
 	int atomicNumber;
-	BOOL is_selected;
-	BOOL is_drawn;
+	_Bool is_selected;
+	_Bool is_drawn;
 } TILE;
 
 //VLINES *edBuf1=NULL; //Buffer vector of lines(1022 chars)
 //VLINES tempLine;
 
 TILE periodictable[TABLESIZE];
-BOOL displaytable = TRUE;
+_Bool displaytable = TRUE;
 
 int new_rows = 0, new_columns = 0, old_rows = 0, old_columns = 0;	// Terminal dimensions
 
@@ -269,7 +269,7 @@ void step_right();
 void step_left();
 void step_down();
 void step_up();
-void getColorScheme(int index, int *bcol, int *fcol, BOOL simple);
+void getColorScheme(int index, int *bcol, int *fcol, _Bool simple);
 void option_menu();
 int getElementfromFile(char *text, int elementNumber);
 
@@ -436,7 +436,7 @@ close_term();
 return 0;
 }
 
-void getColorScheme(int index, int *bcol, int *fcol, BOOL simple)
+void getColorScheme(int index, int *bcol, int *fcol, _Bool simple)
 {
 /* TEN groups
 0 Unknown Properties - Black/white
@@ -1099,7 +1099,7 @@ int displaySearch()
 {
 	char texto[MAXLINE];
 	char lowercase[MAXLINE];
-	BOOL elementFound = FALSE;
+	_Bool elementFound = FALSE;
 	int i = 0, k = 0;
 	char ch = 0;
 	create_screen(&screen2);

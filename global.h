@@ -97,8 +97,8 @@ extern NTIMER timer2;
 extern size_t animation;
 extern int centerX;
 extern char titlemsg[18];
-extern BOOL displaytable;
-extern BOOL blocked;
+extern _Bool displaytable;
+extern _Bool blocked;
 
 //extern char aboutMSG[7][MAXLINE];
 
