@@ -1273,7 +1273,12 @@ int getElementfromFile(char *text, int elementNumber)
 		printf("Error opening file\n");
 		exit(0);
 	}
-	if (fp2 != NULL) fp = fp2;
+	 if (fp2 != NULL) {
+        if (fp != NULL) {
+            fclose(fp);
+        }
+        fp = fp2;
+    }
 	sprintf(dummy, "%d", elementNumber);
 	strcpy(start_str, "[");
 	strcat(start_str, dummy);
@@ -1301,7 +1306,7 @@ int getElementfromFile(char *text, int elementNumber)
 	strcat(buffer, "\0");
 	strcpy(text, buffer);
 
-	if ((fp != NULL) || (fp2 != NULL)) fclose(fp);
+        if ((fp != NULL)) {fclose(fp); }
 	return ch;
 }
 
