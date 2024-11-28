@@ -1225,7 +1225,7 @@ int getElementfromFile(char *text, int elementNumber)
 	char filename[] = "elements.dat";
 	char filename2[] = "/usr/share/ptable/elements.dat";
 	char buffer[MAXTEXT];
-	char dummy[4];
+	char dummy[20];
 	char start_str[6];
 	char end_str[6];
 	char line[MAX_LINE_LENGTH];
