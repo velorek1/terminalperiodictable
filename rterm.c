@@ -213,8 +213,7 @@ void close_term(void)
 {
 	showcursor();
 	resetTerm();
-	outputcolor(F_WHITE, B_BLACK);
-	screencol(B_BLACK);
 	resetAnsi(0);
-	printf("\n");
+	gotoxy(0,0);
+	printf("%c[2J\r", 0x1b);
 }
