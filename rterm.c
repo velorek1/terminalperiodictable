@@ -202,6 +202,8 @@ void showcursor(void)
 
 void init_term(void)
 {
+        //switch to alternate screen buffer
+        printf("\033[?1049h");
 	hidecursor();
 	pushTerm();
 	resetch();
@@ -214,6 +216,8 @@ void close_term(void)
 	showcursor();
 	resetTerm();
 	resetAnsi(0);
-	gotoxy(0,0);
-	printf("%c[2J\r", 0x1b);
+	//gotoxy(0,0);
+	//printf("%c[2J\r", 0x1b);
+	//restore previous screen
+        printf("\033[?1049l");
 }
